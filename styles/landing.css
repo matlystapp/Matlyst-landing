@@ -5,6 +5,19 @@
 .container { max-width: 1180px; margin: 0 auto; padding: 0 var(--gutter); }
 .section   { padding: 120px 0; position: relative; }
 .section--tight { padding: 80px 0; }
+
+/* Consistent, balanced vertical rhythm across every section at all sizes */
+@media (max-width: 860px) {
+  .section,
+  .section--problem,
+  .waitlist { padding: 80px 0; }
+  .section--tight { padding: 56px 0; }
+}
+@media (max-width: 560px) {
+  .section,
+  .section--problem,
+  .waitlist { padding: 64px 0; }
+}
 .section__head { max-width: 760px; margin: 0 auto 64px; text-align: center; }
 .section__head--left { text-align: left; margin-left: 0; }
 
@@ -78,23 +91,64 @@
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-bottom: 1px solid rgba(38, 23, 18, 0.06);
 }
-.nav__inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.nav__inner { display: flex; align-items: center; justify-content: space-between; height: 80px; }
 .nav__logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
-.nav__logo .wm   { height: 22px; width: auto; }
-.nav__links { display: flex; align-items: center; gap: 32px; }
+.nav__logo .wm   { height: 28px; width: auto; }
+.nav__links { display: flex; align-items: center; gap: 36px; }
 .nav__links a {
-  font-size: 14px; font-weight: 500; color: var(--ink); opacity: 0.7;
+  font-size: 16px; font-weight: 500; color: var(--ink); opacity: 0.7;
   text-decoration: none; transition: opacity 180ms;
 }
 .nav__links a:hover { opacity: 1; }
+.nav__actions { display: flex; align-items: center; gap: 12px; }
 .nav__cta {
   background: var(--persimmon); color: #fff;
-  padding: 9px 18px; border-radius: 999px;
-  font-size: 13px; font-weight: 600; text-decoration: none;
+  padding: 14px 26px; border-radius: 999px;
+  font-size: 15px; font-weight: 600; text-decoration: none;
   transition: background 180ms;
 }
 .nav__cta:hover { background: var(--persimmon-deep); color: #fff; }
-@media (max-width: 760px) { .nav__links { display: none; } }
+
+/* Hamburger — hidden on desktop, shown on mobile */
+.nav__burger {
+  display: none;
+  align-items: center; justify-content: center;
+  width: 44px; height: 44px;
+  border: 0; border-radius: 12px;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  flex: none;
+  transition: background 180ms;
+}
+.nav__burger:hover { background: rgba(38, 23, 18, 0.06); }
+
+/* Mobile dropdown menu — collapsed by default */
+.nav__mobile { display: none; }
+
+@media (max-width: 860px) {
+  .nav__links { display: none; }
+  .nav__burger { display: inline-flex; }
+  .nav__mobile {
+    display: flex;
+    flex-direction: column;
+    padding: 8px var(--gutter) 20px;
+    border-top: 1px solid rgba(38, 23, 18, 0.06);
+    background: rgba(251, 248, 242, 0.96);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+  }
+  .nav__mobile[hidden] { display: none; }
+  .nav__mobile a {
+    padding: 14px 4px;
+    font-size: 17px; font-weight: 500;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav__mobile a:last-child { border-bottom: 0; }
+  .nav__mobile a:hover { color: var(--persimmon); }
+}
 
 /* ====== Hero ====== */
 .hero {
@@ -275,7 +329,7 @@
 /* ====== Problem section — editorial pain points, asymmetric ====== */
 .section--problem {
   background: var(--cream-deep);
-  padding: 140px 0 120px;
+  padding: 120px 0;
   position: relative;
   overflow: hidden;
 }
@@ -610,7 +664,26 @@
 }
 .bento > * { grid-column: span 3; }
 .bento > .bento--tall { grid-row: span 1; }
-@media (max-width: 800px) { .bento > * { grid-column: span 6; } }
+@media (max-width: 800px) {
+  .bento > * { grid-column: span 6; }
+  /* Stack mini-visuals below the copy — never overlapping the text */
+  .bento-tile {
+    min-height: 0;
+    padding: 28px;
+  }
+  .bento-tile__copy { max-width: none; }
+  .bento-tile .bento-viz,
+  .bento-tile .citylist {
+    position: static;
+    right: auto; bottom: auto;
+    margin-top: 24px;
+    width: 100%;
+    max-width: 300px;
+    transform: none;
+  }
+  .bento-tile .citylist { height: 168px; }
+  .bento-tile .tastecard { transform: none !important; }
+}
 
 .bento-tile {
   background: var(--paper);
@@ -633,6 +706,8 @@
   width: 60%; max-width: 280px; height: 60%;
   pointer-events: none;
 }
+/* Bento mini-visuals — anchored bottom-right on desktop */
+.bento-tile .bento-viz { position: absolute; right: 24px; bottom: 24px; }
 .bento-tile--sage    { background: var(--sage);    color: #fff; }
 .bento-tile--sage h3, .bento-tile--sage p { color: #fff; }
 .bento-tile--sage p  { opacity: 0.85; }
@@ -1212,9 +1287,48 @@
    ============================================================ */
 .waitlist__form.is-error { box-shadow: 0 0 0 2px rgba(255,255,255,0.4), 0 20px 50px -20px rgba(38, 23, 18, 0.35); }
 
+/* ============================================================
+   Waitlist form — responsive layout
+   Desktop: email + button on one row inside the pill, no overlap.
+   Mobile:  email field on top, full-width button below.
+   ============================================================ */
+.waitlist__form input { flex: 1 1 auto; min-width: 120px; }
+.waitlist__form button {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  flex: none;
+}
+@media (max-width: 560px) {
+  .waitlist__form {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+    border-radius: 0;
+    max-width: 420px;
+  }
+  .waitlist__form input {
+    width: 100%;
+    min-width: 0;
+    background: var(--paper);
+    border-radius: 16px;
+    padding: 16px 18px;
+    box-shadow: 0 20px 50px -20px rgba(38, 23, 18, 0.35);
+  }
+  .waitlist__form button {
+    width: 100%;
+    padding: 16px 22px;
+    font-size: 15px;
+  }
+  .waitlist__form.is-error { box-shadow: none; }
+  .waitlist__form.is-error input { box-shadow: 0 0 0 2px rgba(255,255,255,0.65), 0 20px 50px -20px rgba(38, 23, 18, 0.35); }
+}
+
 /* nav cta sits inside the long string */
 .nav__cta { white-space: nowrap; }
-@media (max-width: 760px) { .nav__cta { font-size: 12px; padding: 8px 14px; } }
+@media (max-width: 600px) { .nav__cta { font-size: 13px; padding: 11px 16px; } }
+@media (max-width: 430px) { .nav__cta { font-size: 12px; padding: 10px 13px; } }
 
 /* ============================================================
    Copy update — Sección El Problema: accent + underline animado

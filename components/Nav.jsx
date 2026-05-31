@@ -1,19 +1,47 @@
 // Nav.jsx — sticky top nav, Apple-clean, wordmark + persimmon CTA.
+// Desktop: inline links. Mobile: hamburger toggles a dropdown menu;
+// the CTA stays visible at all widths.
 function Nav() {
+  const [open, setOpen] = React.useState(false);
+
+  const links = [
+    ['#problema', 'El problema'],
+    ['#que-es', 'Qué es'],
+    ['#como-funciona', 'Cómo funciona'],
+    ['#features', 'Funciones'],
+    ['#faq', 'FAQ'],
+  ];
+
   return (
-    <nav className="nav">
+    <nav className={"nav" + (open ? " is-open" : "")}>
       <div className="container nav__inner">
-        <a className="nav__logo" href="#top" aria-label="Matlyst — inicio">
+        <a className="nav__logo" href="#top" aria-label="Matlyst — inicio" onClick={() => setOpen(false)}>
           <img className="wm" src="assets/matlyst-wordmark.png" alt="Matlyst" />
         </a>
         <div className="nav__links">
-          <a href="#problema">El problema</a>
-          <a href="#que-es">Qué es</a>
-          <a href="#como-funciona">Cómo funciona</a>
-          <a href="#features">Funciones</a>
-          <a href="#faq">FAQ</a>
+          {links.map(([href, label]) => (
+            <a key={href} href={href}>{label}</a>
+          ))}
         </div>
-        <a className="nav__cta" href="#lista-espera">Únete a la lista de espera</a>
+        <div className="nav__actions">
+          <a className="nav__cta" href="#lista-espera" onClick={() => setOpen(false)}>Únete a la lista de espera</a>
+          <button
+            type="button"
+            className="nav__burger"
+            aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
+            aria-expanded={open}
+            aria-controls="nav-mobile-menu"
+            onClick={() => setOpen(o => !o)}
+          >
+            <Icon name={open ? 'x' : 'menu'} size={24} stroke={2} />
+          </button>
+        </div>
+      </div>
+
+      <div className="nav__mobile" id="nav-mobile-menu" hidden={!open}>
+        {links.map(([href, label]) => (
+          <a key={href} href={href} onClick={() => setOpen(false)}>{label}</a>
+        ))}
       </div>
     </nav>
   );
