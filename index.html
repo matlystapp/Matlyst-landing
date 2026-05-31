@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#FBF8F2" />
+
+  <title>Matlyst — La app de recomendaciones de restaurantes que sí te va a funcionar</title>
+  <meta name="description" content="Matlyst es la red social gastronómica donde descubres restaurantes recomendados por gente con tu mismo gusto. Únete a la waiting list y sé el primero en probarla." />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="es_ES" />
+  <meta property="og:url" content="https://matlyst.app/" />
+  <meta property="og:title" content="Matlyst — Los restaurantes que recomienda tu gente" />
+  <meta property="og:description" content="La app donde las recomendaciones de restaurantes vienen de gente real con buen gusto. No de algoritmos. No de reseñas anónimas." />
+  <meta property="og:image" content="https://matlyst.app/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Matlyst — Los restaurantes que recomienda tu gente" />
+  <meta name="twitter:description" content="La red social gastronómica donde las recomendaciones vienen de gente real con buen gusto." />
+
+  <link rel="canonical" href="https://matlyst.app/" />
+  <link rel="icon" type="image/png" href="assets/matlyst-mark.png" />
+  <link rel="apple-touch-icon" href="assets/matlyst-mark.png" />
+
+  <link rel="preload" href="fonts/Switzer-Regular.woff" as="font" type="font/woff" crossorigin />
+  <link rel="preload" href="fonts/Switzer-Extrabold.woff" as="font" type="font/woff" crossorigin />
+
+  <link rel="stylesheet" href="styles/colors_and_type.css" />
+  <link rel="stylesheet" href="styles/landing.css" />
+
+  <!-- ==================== Cookiebot ====================
+       Loaded conditionally below — only when a real data-cbid is configured.
+       Keeps the page free of console errors in dev / placeholder state. -->
+  <script>
+    window.MATLYST_COOKIEBOT_ID = 'REPLACE-WITH-YOUR-COOKIEBOT-DOMAIN-GROUP-ID';
+  </script>
+
+  <!-- ==================== Google Analytics 4 ==================== -->
+  <!-- Gated by the in-page cookie banner. Replace GA_MEASUREMENT_ID. -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ window.dataLayer.push(arguments); }
+    window.gtag = gtag;
+    gtag('js', new Date());
+    // Default: deny analytics until user accepts. Consent Mode v2.
+    gtag('consent', 'default', {
+      'ad_storage':            'denied',
+      'ad_user_data':          'denied',
+      'ad_personalization':    'denied',
+      'analytics_storage':     'denied',
+      'functionality_storage': 'granted',
+      'security_storage':      'granted',
+      'wait_for_update':       500,
+    });
+    window.MATLYST_GA_ID = 'G-REPLACE_WITH_YOUR_GA4_ID';
+  </script>
+
+  <!-- ==================== React + Babel ==================== -->
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <!-- ==================== Schema markup ==================== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Matlyst",
+    "url": "https://matlyst.app/",
+    "logo": "https://matlyst.app/assets/matlyst-wordmark.png",
+    "description": "Red social gastronómica donde las recomendaciones de restaurantes vienen de gente real con buen gusto.",
+    "founder": { "@type": "Person", "name": "Christian Mateo Martínez Sáchica" },
+    "sameAs": [
+      "https://instagram.com/matlyst.app",
+      "https://tiktok.com/@matlyst",
+      "https://x.com/matlyst"
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MobileApplication",
+    "name": "Matlyst",
+    "operatingSystem": "iOS, Android",
+    "applicationCategory": "LifestyleApplication",
+    "description": "La app donde las recomendaciones de restaurantes vienen de personas reales con tu mismo gusto.",
+    "url": "https://matlyst.app/",
+    "image": "https://matlyst.app/assets/matlyst-wordmark.png",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+    "availableOnDevice": "iOS, Android",
+    "inLanguage": "es-ES"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type":"Question","name":"¿Qué es Matlyst?","acceptedAnswer":{"@type":"Answer","text":"Matlyst es una aplicación móvil que funciona como red social gastronómica. Permite a los usuarios descubrir, compartir y guardar recomendaciones de restaurantes basadas en los gustos de personas reales de su comunidad, no en algoritmos publicitarios ni en reseñas anónimas."}},
+      {"@type":"Question","name":"¿Cuándo estará disponible Matlyst?","acceptedAnswer":{"@type":"Answer","text":"Matlyst está actualmente en fase de desarrollo y lanzamiento. Puedes unirte a la lista de espera para recibir acceso prioritario antes de la apertura al público general."}},
+      {"@type":"Question","name":"¿Matlyst es gratuita?","acceptedAnswer":{"@type":"Answer","text":"Sí. Matlyst será gratuita para todos los usuarios en su lanzamiento. Únete a la lista de espera para ser el primero en descargarlo."}},
+      {"@type":"Question","name":"¿En qué se diferencia Matlyst de TripAdvisor o Google Maps?","acceptedAnswer":{"@type":"Answer","text":"La diferencia principal es que en Matlyst las recomendaciones vienen de personas reales de tu comunidad cuyos gustos conoces y valoras. A diferencia de TripAdvisor o Google Maps, donde cualquier persona puede dejar una reseña sin contexto, Matlyst te permite conectar con gente que comparte tus preferencias gastronómicas y filtrar el ruido."}},
+      {"@type":"Question","name":"¿Matlyst funciona en toda España?","acceptedAnswer":{"@type":"Answer","text":"Sí. El lanzamiento inicial tiene cobertura nacional en España, con especial foco en ciudades como Madrid, Barcelona, Valencia, Sevilla o San Sebastián."}},
+      {"@type":"Question","name":"¿Puedo recomendar cualquier tipo de restaurante?","acceptedAnswer":{"@type":"Answer","text":"Sí. Desde el bar de tapas de toda la vida hasta el restaurante con estrella Michelin, todo tiene cabida si tú lo consideras una buena recomendación."}},
+      {"@type":"Question","name":"¿Cómo sabe Matlyst qué restaurantes me van a gustar?","acceptedAnswer":{"@type":"Answer","text":"Matlyst construye tu perfil gastronómico a partir de tus preferencias, tus recomendaciones y las personas que sigues. Cuanto más la uses, más personalizado se vuelve tu feed de descubrimiento."}}
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a href="#main" class="visually-hidden" style="position:absolute;left:-9999px;">Saltar al contenido</a>
+  <div id="root"></div>
+
+  <!-- ==================== Cookie consent banner ==================== -->
+  <aside class="cookie-banner" id="cookie-banner" role="dialog" aria-labelledby="cookie-title" aria-describedby="cookie-desc" hidden>
+    <h4 id="cookie-title">Antes de seguir</h4>
+    <p id="cookie-desc">
+      Usamos cookies analíticas para entender qué funciona y qué no.
+      Solo se activan si tú las aceptas. <a href="politica-de-cookies.html">Más info</a>.
+    </p>
+    <div class="cookie-banner__row">
+      <button class="cookie-banner__btn cookie-banner__btn--reject" id="cookie-reject" type="button">Rechazar</button>
+      <button class="cookie-banner__btn cookie-banner__btn--accept" id="cookie-accept" type="button">Aceptar todas</button>
+    </div>
+  </aside>
+
+  <!-- ==================== Components ==================== -->
+  <script type="text/babel" src="components/Icons.jsx"></script>
+  <script type="text/babel" src="components/Nav.jsx"></script>
+  <script type="text/babel" src="components/Hero.jsx"></script>
+  <script type="text/babel" src="components/Sections.jsx"></script>
+  <script type="text/babel" src="components/WaitingList.jsx"></script>
+  <script type="text/babel" src="components/FaqSection.jsx"></script>
+  <script type="text/babel" src="components/Footer.jsx"></script>
+
+  <script type="text/babel">
+    function App() {
+      return (
+        <>
+          <Nav />
+          <main id="main">
+            <Hero />
+            <ProblemSection />
+            <WhatIsSection />
+            <HowItWorksSection />
+            <FeaturesSection />
+            <SocialProofSection />
+            <WaitingListSection />
+            <FaqSection />
+          </main>
+          <Footer />
+        </>
+      );
+    }
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+
+  <!-- ==================== App scripts (reveal, smooth scroll, cookies) ==================== -->
+  <script>
+    // Wait for the React tree to actually mount before tagging nodes —
+    // Babel finishes transforming after window.load, so we poll on #root
+    // having real children + a known landing selector being present.
+    function whenMounted(fn) {
+      const start = Date.now();
+      function tick() {
+        const root = document.getElementById('root');
+        const ready = root && root.children.length > 0 && document.querySelector('.section');
+        if (ready) return fn();
+        if (Date.now() - start > 8000) return fn(); // give up — run anyway
+        requestAnimationFrame(tick);
+      }
+      tick();
+    }
+
+    whenMounted(() => {
+      // 0) Optionally load Cookiebot if a real ID has been provided.
+      const CBID = window.MATLYST_COOKIEBOT_ID;
+      if (CBID && !CBID.includes('REPLACE')) {
+        const s = document.createElement('script');
+        s.id = 'Cookiebot';
+        s.src = 'https://consent.cookiebot.com/uc.js';
+        s.setAttribute('data-cbid', CBID);
+        s.setAttribute('data-blockingmode', 'auto');
+        s.async = true;
+        document.head.appendChild(s);
+      }
+
+      // 1) Reveal-on-scroll — fade + slide up.
+      const targets = [
+        '.section__head',
+        '.section__sub',
+        '.feature-card',
+        '.step',
+        '.bento-tile',
+        '.stat',
+        '.testimonial',
+        '.waitlist__card',
+        '.faq__item',
+      ];
+      const nodes = Array.from(document.querySelectorAll(targets.join(',')))
+        .filter(n => !n.closest('#que-es')); // #que-es has its own choreography
+      nodes.forEach(n => n.setAttribute('data-reveal', ''));
+
+      // rAF-throttled getBoundingClientRect check. Reliable in any iframe /
+      // preview / embedded webview where IntersectionObserver is throttled.
+      let pending = nodes.slice();
+      let frame = 0;
+
+      function check() {
+        frame = 0;
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+        const trigger = vh - 60; // reveal when ~60px into viewport
+        const still = [];
+        for (let i = 0; i < pending.length; i++) {
+          const el = pending[i];
+          const r = el.getBoundingClientRect();
+          if (r.top < trigger && r.bottom > 0) {
+            el.classList.add('is-in');
+          } else {
+            still.push(el);
+          }
+        }
+        pending = still;
+        if (pending.length === 0) {
+          window.removeEventListener('scroll', schedule, { passive: true });
+          window.removeEventListener('resize', schedule);
+        }
+      }
+      function schedule() {
+        if (frame) return;
+        frame = requestAnimationFrame(check);
+      }
+
+      check(); // reveal anything already in view (hero head, etc.)
+      window.addEventListener('scroll', schedule, { passive: true });
+      window.addEventListener('resize', schedule);
+
+      // 1b) "El problema" section — bespoke choreography.
+      //     Head cascade (fade+rise, 150ms stagger) when the heading enters,
+      //     and the numbered rows slide in (fade+translateX, 200ms stagger)
+      //     with their divider rules drawing L→R as the next row arrives.
+      (function () {
+        const prob = document.querySelector('.section--problem');
+        if (!prob) return;
+        const reduceMo = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduceMo) { prob.classList.add('head-in', 'pains-in'); return; }
+
+        const headEl = prob.querySelector('.problem-head');
+        const painsEl = prob.querySelector('.pains');
+        let gotHead = false, gotPains = false, pframe = 0;
+        const vh = () => window.innerHeight || document.documentElement.clientHeight;
+
+        function pcheck() {
+          pframe = 0;
+          const margin = 80;
+          if (!gotHead && headEl) {
+            const r = headEl.getBoundingClientRect();
+            if (r.top < vh() - margin && r.bottom > 0) { gotHead = true; prob.classList.add('head-in'); }
+          }
+          if (!gotPains && painsEl) {
+            const r = painsEl.getBoundingClientRect();
+            if (r.top < vh() - margin && r.bottom > 0) { gotPains = true; prob.classList.add('pains-in'); }
+          }
+          if (gotHead && gotPains) {
+            window.removeEventListener('scroll', psched, { passive: true });
+            window.removeEventListener('resize', psched);
+          }
+        }
+        function psched() { if (pframe) return; pframe = requestAnimationFrame(pcheck); }
+        pcheck();
+        window.addEventListener('scroll', psched, { passive: true });
+        window.addEventListener('resize', psched);
+      })();
+
+      // 1c) "Qué es Matlyst" (#que-es) — head cascade + cards stagger.
+      (function () {
+        const sec = document.querySelector('#que-es');
+        if (!sec) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          sec.classList.add('whatis-in');
+          return;
+        }
+        let got = false, wframe = 0;
+        const vh = () => window.innerHeight || document.documentElement.clientHeight;
+        function wcheck() {
+          wframe = 0;
+          if (got) return;
+          const r = sec.getBoundingClientRect();
+          if (r.top < vh() - 100 && r.bottom > 0) {
+            got = true;
+            sec.classList.add('whatis-in');
+            window.removeEventListener('scroll', wsched, { passive: true });
+            window.removeEventListener('resize', wsched);
+          }
+        }
+        function wsched() { if (wframe) return; wframe = requestAnimationFrame(wcheck); }
+        wcheck();
+        window.addEventListener('scroll', wsched, { passive: true });
+        window.addEventListener('resize', wsched);
+      })();
+
+      // 2) Smooth scroll for in-page nav anchors only (href="#id").
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', (e) => {
+          const id = a.getAttribute('href').slice(1);
+          if (!id) return;
+          const el = document.getElementById(id);
+          if (!el) return;
+          e.preventDefault();
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          history.replaceState(null, '', '#' + id);
+        });
+      });
+
+      // 3) Cookie banner — gates GA4 by Consent Mode v2.
+      const KEY = 'matlyst.consent.v1';
+      const banner = document.getElementById('cookie-banner');
+      const accept = document.getElementById('cookie-accept');
+      const reject = document.getElementById('cookie-reject');
+
+      function loadGA4() {
+        const id = window.MATLYST_GA_ID;
+        if (!id || id.includes('REPLACE')) return; // not configured
+        if (document.getElementById('ga4-script')) return;
+        const s = document.createElement('script');
+        s.id = 'ga4-script';
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
+        document.head.appendChild(s);
+        window.gtag('config', id, { anonymize_ip: true });
+      }
+
+      function applyConsent(granted) {
+        if (granted) {
+          window.gtag && window.gtag('consent', 'update', {
+            ad_storage: 'granted',
+            ad_user_data: 'granted',
+            ad_personalization: 'granted',
+            analytics_storage: 'granted',
+          });
+          loadGA4();
+        } else {
+          window.gtag && window.gtag('consent', 'update', {
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+            analytics_storage: 'denied',
+          });
+        }
+      }
+
+      const saved = localStorage.getItem(KEY);
+      if (saved === 'accepted') {
+        applyConsent(true);
+      } else if (saved === 'rejected') {
+        applyConsent(false);
+      } else {
+        // Surface the banner once layout has settled.
+        banner.hidden = false;
+        requestAnimationFrame(() => banner.classList.add('is-visible'));
+      }
+
+      function close() {
+        banner.classList.remove('is-visible');
+        setTimeout(() => banner.hidden = true, 360);
+      }
+
+      accept.addEventListener('click', () => {
+        localStorage.setItem(KEY, 'accepted');
+        applyConsent(true);
+        close();
+      });
+      reject.addEventListener('click', () => {
+        localStorage.setItem(KEY, 'rejected');
+        applyConsent(false);
+        close();
+      });
+    });
+  </script>
+</body>
+</html>

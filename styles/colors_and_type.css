@@ -1,0 +1,159 @@
+/* ============================================================
+   MATLYST — COLORS & TYPE FOUNDATIONS
+   The single source of truth for the brand's visual atoms.
+   ============================================================ */
+
+/* ---------- FONT FACES (Switzer family, local woff) ---------- */
+@font-face { font-family: "Switzer"; font-style: normal; font-weight: 400; src: url("../fonts/Switzer-Regular.woff") format("woff"); font-display: swap; }
+@font-face { font-family: "Switzer"; font-style: italic; font-weight: 400; src: url("../fonts/Switzer-Italic.woff") format("woff"); font-display: swap; }
+@font-face { font-family: "Switzer"; font-style: normal; font-weight: 500; src: url("../fonts/Switzer-Medium.woff") format("woff"); font-display: swap; }
+@font-face { font-family: "Switzer"; font-style: normal; font-weight: 600; src: url("../fonts/Switzer-Semibold.woff") format("woff"); font-display: swap; }
+@font-face { font-family: "Switzer"; font-style: normal; font-weight: 700; src: url("../fonts/Switzer-Bold.woff") format("woff"); font-display: swap; }
+@font-face { font-family: "Switzer"; font-style: normal; font-weight: 800; src: url("../fonts/Switzer-Extrabold.woff") format("woff"); font-display: swap; }
+@font-face { font-family: "Switzer"; font-style: normal; font-weight: 900; src: url("../fonts/Switzer-Black.woff") format("woff"); font-display: swap; }
+
+:root {
+  /* ====================================================
+     COLOR — BRAND CORE
+     ==================================================== */
+
+  /* Brand */
+  --persimmon:       #E35336;
+  --persimmon-deep:  #C2401F;
+  --persimmon-soft:  #F9D6CC;
+  --persimmon-whisper:#FDEAE1;
+
+  --sage:            #98A869;
+  --sage-deep:       #7C8C50;
+  --sage-soft:       #DEE5C8;
+
+  --sky:             #4AABE8;
+  --sky-deep:        #2A8DC9;
+  --sky-soft:        #CFE6F7;
+
+  /* Warm neutrals — the canvas */
+  --cream:           #FBF8F2;
+  --cream-deep:      #F2EDE0;
+  --paper:           #FFFFFF;
+  --paper-pure:      #FFFFFF;
+  --bone:            #E1D8C2;
+
+  /* Ink — warm near-black */
+  --ink:             #261712;
+  --ink-soft:        #5A4538;
+  --ink-quiet:       #8A7460;
+  --rule:            rgba(38, 23, 18, 0.10);
+  --rule-strong:     rgba(38, 23, 18, 0.18);
+
+  /* Legacy aliases */
+  --burgundy:        var(--ink);
+  --burgundy-85:     #3A2519;
+  --amber:           var(--persimmon);
+  --amber-deep:      var(--persimmon-deep);
+  --amber-soft:      var(--persimmon-soft);
+
+  --success:         var(--sage-deep);
+  --danger:          var(--persimmon-deep);
+
+  --bg:              var(--cream);
+  --bg-elevated:     var(--paper);
+  --bg-inverse:      var(--ink);
+
+  /* TYPE */
+  --font-sans:    "Switzer", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Switzer", ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  --w-regular:   400;
+  --w-medium:    500;
+  --w-semibold:  600;
+  --w-bold:      700;
+  --w-extrabold: 800;
+  --w-black:     900;
+
+  --t-display-xl: clamp(60px, 9vw, 128px);
+  --t-display:    clamp(48px, 6vw, 88px);
+  --t-h1:         clamp(40px, 4.5vw, 64px);
+  --t-h2:         clamp(32px, 3.5vw, 48px);
+  --t-h3:         28px;
+  --t-h4:         22px;
+  --t-eyebrow:    13px;
+  --t-lead:       21px;
+  --t-body:       17px;
+  --t-small:      15px;
+  --t-caption:    13px;
+  --t-legal:      12px;
+
+  --lh-tight:    0.95;
+  --lh-snug:     1.10;
+  --lh-normal:   1.45;
+  --lh-relaxed:  1.6;
+
+  --ls-display:    -0.025em;
+  --ls-heading:    -0.015em;
+  --ls-body:        0;
+  --ls-eyebrow:     0.14em;
+
+  --r-xs:   6px;
+  --r-sm:  10px;
+  --r-md:  16px;
+  --r-lg:  24px;
+  --r-xl:  32px;
+  --r-pill: 999px;
+
+  --shadow-flat:    none;
+  --shadow-card:    0 1px 0 rgba(35,0,7,0.06), 0 8px 24px -8px rgba(35,0,7,0.10);
+  --shadow-lift:    0 12px 36px -12px rgba(35,0,7,0.18), 0 2px 4px rgba(35,0,7,0.04);
+  --shadow-pop:     0 24px 60px -20px rgba(35,0,7,0.28);
+
+  --s-0:    0;
+  --s-1:    4px;
+  --s-2:    8px;
+  --s-3:   12px;
+  --s-4:   16px;
+  --s-5:   24px;
+  --s-6:   32px;
+  --s-7:   48px;
+  --s-8:   64px;
+  --s-9:   96px;
+  --s-10: 128px;
+  --s-11: 160px;
+
+  --gutter:    clamp(20px, 4vw, 48px);
+  --container: 1200px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--t-body);
+  line-height: var(--lh-relaxed);
+  font-weight: var(--w-regular);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  color: var(--ink);
+  margin: 0;
+  text-wrap: balance;
+}
+
+h1 { font-size: var(--t-h1); font-weight: var(--w-black);    line-height: var(--lh-tight); letter-spacing: var(--ls-display); }
+h2 { font-size: var(--t-h2); font-weight: var(--w-extrabold); line-height: var(--lh-snug);  letter-spacing: var(--ls-heading); }
+h3 { font-size: var(--t-h3); font-weight: var(--w-bold);      line-height: 1.2;             letter-spacing: var(--ls-heading); }
+h4 { font-size: var(--t-h4); font-weight: var(--w-semibold);  line-height: 1.3;             letter-spacing: var(--ls-heading); }
+
+p   { margin: 0; line-height: var(--lh-relaxed); text-wrap: pretty; }
+a   { color: var(--ink); text-decoration: none; }
+a:hover { color: var(--persimmon-deep); }
+
+small      { font-size: var(--t-caption); color: var(--ink-soft); }
+strong, b  { font-weight: var(--w-semibold); }
+
+::selection { background: var(--persimmon); color: #fff; }
