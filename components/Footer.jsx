@@ -20,8 +20,6 @@ function Footer() {
           </nav>
           <nav className="footer__social" aria-label="Redes sociales">
             <a href="https://instagram.com/matlyst.app" target="_blank" rel="noreferrer">Instagram</a>
-            <a href="https://tiktok.com/@matlyst" target="_blank" rel="noreferrer">TikTok</a>
-            <a href="https://x.com/matlyst" target="_blank" rel="noreferrer">Twitter/X</a>
           </nav>
         </div>
 
