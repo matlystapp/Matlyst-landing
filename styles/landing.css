@@ -666,48 +666,39 @@
 .bento > .bento--tall { grid-row: span 1; }
 @media (max-width: 800px) {
   .bento > * { grid-column: span 6; }
-  /* Stack mini-visuals below the copy — never overlapping the text */
-  .bento-tile {
-    min-height: 0;
-    padding: 28px;
-  }
-  .bento-tile__copy { max-width: none; }
-  .bento-tile .bento-viz,
-  .bento-tile .citylist {
-    position: static;
-    right: auto; bottom: auto;
-    margin-top: 24px;
-    width: 100%;
-    max-width: 300px;
-    transform: none;
-  }
-  .bento-tile .citylist { height: 168px; }
-  .bento-tile .tastecard { transform: none !important; }
+}
+@media (max-width: 520px) {
+  .bento { gap: 16px; }
+  .bento-tile { padding: 24px; min-height: 0; }
 }
 
 .bento-tile {
   background: var(--paper);
   border-radius: 28px;
-  padding: 36px;
+  padding: 32px;
   box-shadow: 0 2px 4px rgba(38,23,18,0.04), 0 16px 40px -20px rgba(38,23,18,0.14);
   display: flex; flex-direction: column;
+  gap: 22px;
   position: relative; overflow: hidden;
-  min-height: 360px;
+  min-height: 340px;
 }
-.bento-tile__copy { max-width: 360px; }
+.bento-tile__copy { max-width: 440px; }
 .bento-tile h3 {
   font-family: var(--font-display); font-weight: 700;
   font-size: 26px; line-height: 1.12; letter-spacing: -0.022em;
   color: var(--ink); margin: 0 0 10px;
 }
 .bento-tile p { margin: 0; color: var(--ink-soft); font-size: 15px; line-height: 1.55; }
-.bento-tile__visual {
-  position: absolute; right: -20px; bottom: -20px;
-  width: 60%; max-width: 280px; height: 60%;
-  pointer-events: none;
+/* Bento mini-visuals — flow below the copy and pin to the tile bottom.
+   Never absolutely positioned, so they can't overlap the text at any width. */
+.bento-tile .bento-viz,
+.bento-tile .citylist {
+  position: static;
+  right: auto; bottom: auto;
+  width: 100%;
+  margin-top: auto;
+  align-self: stretch;
 }
-/* Bento mini-visuals — anchored bottom-right on desktop */
-.bento-tile .bento-viz { position: absolute; right: 24px; bottom: 24px; }
 .bento-tile--sage    { background: var(--sage);    color: #fff; }
 .bento-tile--sage h3, .bento-tile--sage p { color: #fff; }
 .bento-tile--sage p  { opacity: 0.85; }
@@ -1287,6 +1278,7 @@
    ============================================================ */
 .waitlist__form.is-error { box-shadow: 0 0 0 2px rgba(255,255,255,0.4), 0 20px 50px -20px rgba(38, 23, 18, 0.35); }
 
+
 /* ============================================================
    Waitlist form — responsive layout
    Desktop: email + button on one row inside the pill, no overlap.
@@ -1323,6 +1315,27 @@
   }
   .waitlist__form.is-error { box-shadow: none; }
   .waitlist__form.is-error input { box-shadow: 0 0 0 2px rgba(255,255,255,0.65), 0 20px 50px -20px rgba(38, 23, 18, 0.35); }
+}
+
+/* ============================================================
+   Waitlist reassurance row — brand dot separators, no checkmarks.
+   (Checkmarks now live only on the benefits list below, so the
+   two groups read as distinct.)
+   ============================================================ */
+.waitlist__micro {
+  gap: 0 16px;
+  row-gap: 4px;
+}
+.waitlist__micro > span {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+.waitlist__micro > span::before { content: none; }
+.waitlist__micro > span + span::before {
+  content: "·";
+  margin-right: 16px;
+  opacity: 0.55;
 }
 
 /* nav cta sits inside the long string */
@@ -1503,8 +1516,7 @@
 
 /* "Listas por ciudad" — feed en vivo, scroll continuo sin saltos */
 .citylist {
-  position: absolute; right: 24px; bottom: 24px;
-  width: 240px; height: 168px;
+  width: 100%; max-width: 300px; height: 168px;
   background: rgba(255,255,255,0.14);
   backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255,255,255,0.22);

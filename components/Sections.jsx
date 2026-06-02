@@ -385,9 +385,9 @@ function TasteProfileVisual() {
     {n:'Carmen', overlap:'81%', color:'var(--sky)'},
   ];
   return (
-    <div className="bento-viz" style={{width:280, display:'flex', flexDirection:'column', gap:8}}>
+    <div className="bento-viz" style={{display:'flex', flexDirection:'column', gap:8, maxWidth:340}}>
       {users.map((u,i)=>(
-        <div key={i} className="tastecard" style={{transform:`translateX(${i*16}px)`, animationDelay:`${i*1.5}s`}}>
+        <div key={i} className="tastecard" style={{animationDelay:`${i*1.5}s`}}>
           <span className="tastecard__av" style={{background:u.color}}>{u.n[0]}</span>
           <span className="tastecard__meta">
             <span className="tastecard__name">{u.n}</span>
@@ -434,7 +434,7 @@ function ListsVisual() {
     {n:'Brunch domingo', c: 'var(--sky)', count: 6},
   ];
   return (
-    <div className="bento-viz" style={{width:260, display:'grid', gridTemplateColumns:'1fr 1fr', gap:8}}>
+    <div className="bento-viz" style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:8}}>
       {lists.map((l,i)=>(
         <div key={i} className="listtile" style={{
           background:'#fff', borderRadius:14, padding:'14px',
@@ -453,7 +453,7 @@ function ListsVisual() {
 
 function MapVisual() {
   return (
-    <div className="bento-viz" style={{width:280, height:160, borderRadius:18, overflow:'hidden', background:'rgba(255,255,255,0.18)', backdropFilter:'blur(8px)', boxShadow:'0 12px 28px -12px rgba(38,23,18,0.4)', border:'1px solid rgba(255,255,255,0.25)'}}>
+    <div className="bento-viz" style={{height:160, borderRadius:18, overflow:'hidden', background:'rgba(255,255,255,0.18)', backdropFilter:'blur(8px)', boxShadow:'0 12px 28px -12px rgba(38,23,18,0.4)', border:'1px solid rgba(255,255,255,0.25)'}}>
       <svg viewBox="0 0 280 160" style={{width:'100%', height:'100%', display:'block'}}>
         <path d="M 0 90 Q 80 70 140 100 T 280 90" stroke="rgba(255,255,255,0.5)" strokeWidth="3" fill="none"/>
         <path d="M 80 0 L 100 160" stroke="rgba(255,255,255,0.3)" strokeWidth="2" fill="none"/>
