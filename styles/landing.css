@@ -1338,6 +1338,49 @@
   opacity: 0.55;
 }
 
+/* ============================================================
+   Waitlist — clearer hierarchy + tighter responsive layout
+   The three benefits become a translucent panel so the section
+   reads as: headline → form (action) → reassurance → benefits.
+   ============================================================ */
+.waitlist__micro {
+  margin-top: 18px;
+  color: rgba(255,255,255,0.72);
+  font-size: 13px;
+}
+.waitlist__bullets {
+  margin: 36px auto 0;
+  max-width: 480px;
+  gap: 15px;
+  padding: 24px 26px;
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 20px;
+}
+.waitlist__bullets li { color: #fff; }
+.waitlist__bullets .bullet { background: rgba(255,255,255,0.26); }
+.waitlist__legal { margin-top: 24px; }
+
+/* Tablet — pull in the generous desktop padding */
+@media (max-width: 700px) {
+  .waitlist__card { padding: 56px 36px; border-radius: 30px; }
+}
+
+/* Phone — compact padding, smaller headline, tighter rhythm */
+@media (max-width: 560px) {
+  .waitlist { padding: 56px 0; }
+  .waitlist__card { padding: 40px 22px; border-radius: 26px; }
+  .waitlist h2 { font-size: clamp(30px, 8vw, 42px); letter-spacing: -0.022em; }
+  .waitlist__sub { margin-top: 14px; font-size: 16px; }
+  .waitlist__form { margin-top: 24px; }
+  .waitlist__micro { margin-top: 16px; }
+  .waitlist__bullets { margin-top: 28px; padding: 20px 20px; gap: 13px; }
+  .waitlist__bullets li { grid-template-columns: 22px 1fr; gap: 11px; font-size: 14.5px; }
+  .waitlist__bullets .bullet { width: 22px; height: 22px; }
+  .waitlist__legal { margin-top: 20px; }
+  .waitlist__card::after { width: 180px; height: 180px; right: -50px; bottom: -50px; }
+}
+
 /* nav cta sits inside the long string */
 .nav__cta { white-space: nowrap; }
 @media (max-width: 600px) { .nav__cta { font-size: 13px; padding: 11px 16px; } }
