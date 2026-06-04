@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="es">
 <head>
+  <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="f89d2e6f-4065-4c8c-ba84-7002b4a1b440" data-blockingmode="auto" type="text/javascript"></script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#FBF8F2" />
@@ -27,33 +28,6 @@
 
   <link rel="stylesheet" href="styles/colors_and_type.css" />
   <link rel="stylesheet" href="styles/landing.css" />
-
-  <!-- ==================== Cookiebot ====================
-       Loaded conditionally below — only when a real data-cbid is configured.
-       Keeps the page free of console errors in dev / placeholder state. -->
-  <script>
-    window.MATLYST_COOKIEBOT_ID = 'REPLACE-WITH-YOUR-COOKIEBOT-DOMAIN-GROUP-ID';
-  </script>
-
-  <!-- ==================== Google Analytics 4 ==================== -->
-  <!-- Gated by the in-page cookie banner. Replace GA_MEASUREMENT_ID. -->
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){ window.dataLayer.push(arguments); }
-    window.gtag = gtag;
-    gtag('js', new Date());
-    // Default: deny analytics until user accepts. Consent Mode v2.
-    gtag('consent', 'default', {
-      'ad_storage':            'denied',
-      'ad_user_data':          'denied',
-      'ad_personalization':    'denied',
-      'analytics_storage':     'denied',
-      'functionality_storage': 'granted',
-      'security_storage':      'granted',
-      'wait_for_update':       500,
-    });
-    window.MATLYST_GA_ID = 'G-REPLACE_WITH_YOUR_GA4_ID';
-  </script>
 
   <!-- ==================== React + Babel ==================== -->
   <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
@@ -113,19 +87,6 @@
 <body>
   <a href="#main" class="visually-hidden" style="position:absolute;left:-9999px;">Saltar al contenido</a>
   <div id="root"></div>
-
-  <!-- ==================== Cookie consent banner ==================== -->
-  <aside class="cookie-banner" id="cookie-banner" role="dialog" aria-labelledby="cookie-title" aria-describedby="cookie-desc" hidden>
-    <h4 id="cookie-title">Antes de seguir</h4>
-    <p id="cookie-desc">
-      Usamos cookies analíticas para entender qué funciona y qué no.
-      Solo se activan si tú las aceptas. <a href="politica-de-cookies.html">Más info</a>.
-    </p>
-    <div class="cookie-banner__row">
-      <button class="cookie-banner__btn cookie-banner__btn--reject" id="cookie-reject" type="button">Rechazar</button>
-      <button class="cookie-banner__btn cookie-banner__btn--accept" id="cookie-accept" type="button">Aceptar todas</button>
-    </div>
-  </aside>
 
   <!-- ==================== Components ==================== -->
   <script type="text/babel" src="components/Icons.jsx"></script>
@@ -313,70 +274,6 @@
           el.scrollIntoView({ behavior: 'smooth', block: 'start' });
           history.replaceState(null, '', '#' + id);
         });
-      });
-
-      // 3) Cookie banner — gates GA4 by Consent Mode v2.
-      const KEY = 'matlyst.consent.v1';
-      const banner = document.getElementById('cookie-banner');
-      const accept = document.getElementById('cookie-accept');
-      const reject = document.getElementById('cookie-reject');
-
-      function loadGA4() {
-        const id = window.MATLYST_GA_ID;
-        if (!id || id.includes('REPLACE')) return; // not configured
-        if (document.getElementById('ga4-script')) return;
-        const s = document.createElement('script');
-        s.id = 'ga4-script';
-        s.async = true;
-        s.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
-        document.head.appendChild(s);
-        window.gtag('config', id, { anonymize_ip: true });
-      }
-
-      function applyConsent(granted) {
-        if (granted) {
-          window.gtag && window.gtag('consent', 'update', {
-            ad_storage: 'granted',
-            ad_user_data: 'granted',
-            ad_personalization: 'granted',
-            analytics_storage: 'granted',
-          });
-          loadGA4();
-        } else {
-          window.gtag && window.gtag('consent', 'update', {
-            ad_storage: 'denied',
-            ad_user_data: 'denied',
-            ad_personalization: 'denied',
-            analytics_storage: 'denied',
-          });
-        }
-      }
-
-      const saved = localStorage.getItem(KEY);
-      if (saved === 'accepted') {
-        applyConsent(true);
-      } else if (saved === 'rejected') {
-        applyConsent(false);
-      } else {
-        // Surface the banner once layout has settled.
-        banner.hidden = false;
-        requestAnimationFrame(() => banner.classList.add('is-visible'));
-      }
-
-      function close() {
-        banner.classList.remove('is-visible');
-        setTimeout(() => banner.hidden = true, 360);
-      }
-
-      accept.addEventListener('click', () => {
-        localStorage.setItem(KEY, 'accepted');
-        applyConsent(true);
-        close();
-      });
-      reject.addEventListener('click', () => {
-        localStorage.setItem(KEY, 'rejected');
-        applyConsent(false);
-        close();
       });
     });
   </script>
