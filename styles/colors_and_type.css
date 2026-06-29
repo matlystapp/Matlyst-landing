@@ -1,6 +1,7 @@
 /* ============================================================
-   MATLYST — COLORS & TYPE FOUNDATIONS
-   The single source of truth for the brand's visual atoms.
+   MATLYST — COLORS & TYPE FOUNDATIONS  (v2 — refined system)
+   White canvas · crema accent · persimmon #E8490F brand ·
+   muted sage + sober sky secondaries · Switzer 500 titles.
    ============================================================ */
 
 /* ---------- FONT FACES (Switzer family, local woff) ---------- */
@@ -17,37 +18,39 @@
      COLOR — BRAND CORE
      ==================================================== */
 
-  /* Brand */
-  --persimmon:       #E35336;
-  --persimmon-deep:  #C2401F;
-  --persimmon-soft:  #F9D6CC;
+  /* Brand — persimmon (original) */
+  --persimmon:        #E35336;
+  --persimmon-deep:   #C2401F;
+  --persimmon-soft:   #F9D6CC;
   --persimmon-whisper:#FDEAE1;
 
+  /* Secondary — sage (original brand green) */
   --sage:            #98A869;
   --sage-deep:       #7C8C50;
   --sage-soft:       #DEE5C8;
 
+  /* Secondary — sky (original brand blue) */
   --sky:             #4AABE8;
   --sky-deep:        #2A8DC9;
   --sky-soft:        #CFE6F7;
 
-  /* Warm neutrals — the canvas */
-  --cream:           #FBF8F2;
-  --cream-deep:      #F2EDE0;
+  /* Neutrals — all-white surfaces */
+  --cream:           #FFFFFF;   /* base background */
+  --cream-deep:      #FFFFFF;   /* sections all white */
   --paper:           #FFFFFF;
   --paper-pure:      #FFFFFF;
-  --bone:            #E1D8C2;
+  --bone:            #FFFFFF;
 
-  /* Ink — warm near-black */
-  --ink:             #261712;
-  --ink-soft:        #5A4538;
-  --ink-quiet:       #8A7460;
-  --rule:            rgba(38, 23, 18, 0.10);
-  --rule-strong:     rgba(38, 23, 18, 0.18);
+  /* Ink — true neutral */
+  --ink:             #050505;   /* primary text */
+  --ink-soft:        #737373;   /* secondary text */
+  --ink-quiet:       #A3A3A3;   /* tertiary / quiet */
+  --rule:            #E2E2E2;   /* hairline */
+  --rule-strong:     #C7C7C7;   /* borders */
 
   /* Legacy aliases */
   --burgundy:        var(--ink);
-  --burgundy-85:     #3A2519;
+  --burgundy-85:     #222222;
   --amber:           var(--persimmon);
   --amber-deep:      var(--persimmon-deep);
   --amber-soft:      var(--persimmon-soft);
@@ -59,51 +62,56 @@
   --bg-elevated:     var(--paper);
   --bg-inverse:      var(--ink);
 
-  /* TYPE */
+  /* ====================================================
+     TYPE
+     ==================================================== */
   --font-sans:    "Switzer", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-display: "Switzer", ui-sans-serif, system-ui, -apple-system, sans-serif;
 
   --w-regular:   400;
   --w-medium:    500;
   --w-semibold:  600;
-  --w-bold:      700;
-  --w-extrabold: 800;
-  --w-black:     900;
+  --w-bold:      500;   /* titles never bold — aliased down */
+  --w-extrabold: 500;
+  --w-black:     500;
 
-  --t-display-xl: clamp(60px, 9vw, 128px);
-  --t-display:    clamp(48px, 6vw, 88px);
-  --t-h1:         clamp(40px, 4.5vw, 64px);
-  --t-h2:         clamp(32px, 3.5vw, 48px);
-  --t-h3:         28px;
-  --t-h4:         22px;
-  --t-eyebrow:    13px;
-  --t-lead:       21px;
-  --t-body:       17px;
-  --t-small:      15px;
-  --t-caption:    13px;
-  --t-legal:      12px;
+  /* Scale — 14 / 16 / 19 / 23 / 28 / 69 */
+  --t-display-xl: 69px;
+  --t-display:    69px;
+  --t-h1:         clamp(40px, 6vw, 69px);   /* hero only */
+  --t-h2:         clamp(28px, 3.4vw, 40px); /* section heads, max ~40 */
+  --t-h3:         23px;
+  --t-h4:         19px;
+  --t-eyebrow:    14px;
+  --t-lead:       19px;
+  --t-body:       16px;
+  --t-small:      14px;
+  --t-caption:    14px;
+  --t-legal:      14px;
 
-  --lh-tight:    0.95;
-  --lh-snug:     1.10;
-  --lh-normal:   1.45;
-  --lh-relaxed:  1.6;
+  --lh-tight:    1.0;
+  --lh-snug:     1.1;
+  --lh-normal:   1.4;
+  --lh-relaxed:  1.5;
 
-  --ls-display:    -0.025em;
-  --ls-heading:    -0.015em;
+  --ls-display:    -0.02em;
+  --ls-heading:    -0.02em;
   --ls-body:        0;
-  --ls-eyebrow:     0.14em;
+  --ls-eyebrow:     0.08em;
 
-  --r-xs:   6px;
-  --r-sm:  10px;
-  --r-md:  16px;
-  --r-lg:  24px;
-  --r-xl:  32px;
-  --r-pill: 999px;
+  /* Radii — buttons 8 · inputs 12 · cards 20 · pills 9999 */
+  --r-xs:   8px;
+  --r-sm:   8px;
+  --r-md:  12px;
+  --r-lg:  20px;
+  --r-xl:  20px;
+  --r-pill: 9999px;
 
+  /* Shadow — single, neutral */
   --shadow-flat:    none;
-  --shadow-card:    0 1px 0 rgba(35,0,7,0.06), 0 8px 24px -8px rgba(35,0,7,0.10);
-  --shadow-lift:    0 12px 36px -12px rgba(35,0,7,0.18), 0 2px 4px rgba(35,0,7,0.04);
-  --shadow-pop:     0 24px 60px -20px rgba(35,0,7,0.28);
+  --shadow-card:    0px 6px 27px rgba(0,0,0,0.07);
+  --shadow-lift:    0px 6px 27px rgba(0,0,0,0.07);
+  --shadow-pop:     0px 6px 27px rgba(0,0,0,0.07);
 
   --s-0:    0;
   --s-1:    4px;
@@ -141,19 +149,21 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
   color: var(--ink);
   margin: 0;
+  font-weight: 500;
+  letter-spacing: -0.02em;
   text-wrap: balance;
 }
 
-h1 { font-size: var(--t-h1); font-weight: var(--w-black);    line-height: var(--lh-tight); letter-spacing: var(--ls-display); }
-h2 { font-size: var(--t-h2); font-weight: var(--w-extrabold); line-height: var(--lh-snug);  letter-spacing: var(--ls-heading); }
-h3 { font-size: var(--t-h3); font-weight: var(--w-bold);      line-height: 1.2;             letter-spacing: var(--ls-heading); }
-h4 { font-size: var(--t-h4); font-weight: var(--w-semibold);  line-height: 1.3;             letter-spacing: var(--ls-heading); }
+h1 { font-size: var(--t-h1); font-weight: 500; line-height: var(--lh-tight); letter-spacing: -0.02em; }
+h2 { font-size: var(--t-h2); font-weight: 500; line-height: var(--lh-snug);  letter-spacing: -0.02em; }
+h3 { font-size: var(--t-h3); font-weight: 500; line-height: 1.2;             letter-spacing: -0.02em; }
+h4 { font-size: var(--t-h4); font-weight: 500; line-height: 1.3;             letter-spacing: -0.02em; }
 
 p   { margin: 0; line-height: var(--lh-relaxed); text-wrap: pretty; }
 a   { color: var(--ink); text-decoration: none; }
 a:hover { color: var(--persimmon-deep); }
 
 small      { font-size: var(--t-caption); color: var(--ink-soft); }
-strong, b  { font-weight: var(--w-semibold); }
+strong, b  { font-weight: 500; }
 
 ::selection { background: var(--persimmon); color: #fff; }
