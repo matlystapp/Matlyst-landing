@@ -94,11 +94,6 @@ function WaitingListSection() {
             </>
           )}
 
-          <div className="waitlist__micro">
-            <span>Acceso antes que nadie</span>
-            <span>Sin compromiso</span>
-            <span>Cero spam</span>
-          </div>
           <ul className="waitlist__bullets">
             {[
               'Acceso a la beta privada antes del lanzamiento oficial',

@@ -7,7 +7,6 @@ function Nav() {
   const links = [
     ['#problema', 'El problema'],
     ['#que-es', 'Qué es'],
-    ['#como-funciona', 'Cómo funciona'],
     ['#features', 'Funciones'],
     ['#faq', 'FAQ'],
   ];

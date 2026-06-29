@@ -1,0 +1,218 @@
+/* ============================================================
+   MATLYST — COLORS & TYPE FOUNDATIONS
+   The single source of truth for the brand's visual atoms.
+   ============================================================ */
+
+/* ---------- FONT FACES (Switzer family, local woff) ---------- */
+@font-face { font-family: "Switzer"; font-style: normal; font-weight: 100; src: url("./fonts/Switzer-Thin.woff") format("woff"); font-display: swap; }
+@font-face { font-family: "Switzer"; font-style: italic; font-weight: 100; src: url("./fonts/Switzer-ThinItalic.woff") format("woff"); font-display: swap; }
+@font-face { font-family: "Switzer"; font-style: normal; font-weight: 200; src: url("./fonts/Switzer-Extralight.woff") format("woff"); font-display: swap; }
+@font-face { font-family: "Switzer"; font-style: italic; font-weight: 200; src: url("./fonts/Switzer-ExtralightItalic.woff") format("woff"); font-display: swap; }
+@font-face { font-family: "Switzer"; font-style: normal; font-weight: 300; src: url("./fonts/Switzer-Light.woff") format("woff"); font-display: swap; }
+@font-face { font-family: "Switzer"; font-style: italic; font-weight: 300; src: url("./fonts/Switzer-LightItalic.woff") format("woff"); font-display: swap; }
+@font-face { font-family: "Switzer"; font-style: normal; font-weight: 400; src: url("./fonts/Switzer-Regular.woff") format("woff"); font-display: swap; }
+@font-face { font-family: "Switzer"; font-style: italic; font-weight: 400; src: url("./fonts/Switzer-Italic.woff") format("woff"); font-display: swap; }
+@font-face { font-family: "Switzer"; font-style: normal; font-weight: 500; src: url("./fonts/Switzer-Medium.woff") format("woff"); font-display: swap; }
+@font-face { font-family: "Switzer"; font-style: italic; font-weight: 500; src: url("./fonts/Switzer-MediumItalic.woff") format("woff"); font-display: swap; }
+@font-face { font-family: "Switzer"; font-style: normal; font-weight: 600; src: url("./fonts/Switzer-Semibold.woff") format("woff"); font-display: swap; }
+@font-face { font-family: "Switzer"; font-style: italic; font-weight: 600; src: url("./fonts/Switzer-SemiboldItalic.woff") format("woff"); font-display: swap; }
+@font-face { font-family: "Switzer"; font-style: normal; font-weight: 700; src: url("./fonts/Switzer-Bold.woff") format("woff"); font-display: swap; }
+@font-face { font-family: "Switzer"; font-style: italic; font-weight: 700; src: url("./fonts/Switzer-BoldItalic.woff") format("woff"); font-display: swap; }
+@font-face { font-family: "Switzer"; font-style: normal; font-weight: 800; src: url("./fonts/Switzer-Extrabold.woff") format("woff"); font-display: swap; }
+@font-face { font-family: "Switzer"; font-style: italic; font-weight: 800; src: url("./fonts/Switzer-ExtraboldItalic.woff") format("woff"); font-display: swap; }
+@font-face { font-family: "Switzer"; font-style: normal; font-weight: 900; src: url("./fonts/Switzer-Black.woff") format("woff"); font-display: swap; }
+@font-face { font-family: "Switzer"; font-style: italic; font-weight: 900; src: url("./fonts/Switzer-BlackItalic.woff") format("woff"); font-display: swap; }
+
+:root {
+  /* ====================================================
+     COLOR — BRAND CORE
+     Four-color Mediterranean palette + warm ink.
+     The cream is the canvas. Persimmon is the headline
+     accent + primary CTA. Sage and sky are supporting
+     accents — use only one at a time per section.
+     ==================================================== */
+
+  /* Brand */
+  --persimmon:       #E35336;   /* Primary accent + CTAs */
+  --persimmon-deep:  #C2401F;   /* Hover / pressed */
+  --persimmon-soft:  #F9D6CC;   /* 18% tint for chips */
+  --persimmon-whisper:#FDEAE1;
+
+  --sage:            #98A869;   /* Secondary accent: community / quiet UI */
+  --sage-deep:       #7C8C50;
+  --sage-soft:       #DEE5C8;
+
+  --sky:             #4AABE8;   /* Tertiary accent: discovery / info */
+  --sky-deep:        #2A8DC9;
+  --sky-soft:        #CFE6F7;
+
+  /* Warm neutrals — the canvas */
+  --cream:           #FBF8F2;   /* Default page background (warm off-white) */
+  --cream-deep:      #F2EDE0;   /* Section dividers, subtle blocks */
+  --paper:           #FFFFFF;   /* Pure white for raised cards */
+  --paper-pure:      #FFFFFF;
+  --bone:            #E1D8C2;   /* Borders and quiet lines */
+
+  /* Ink — warm near-black */
+  --ink:             #261712;   /* Primary text */
+  --ink-soft:        #5A4538;   /* Secondary text */
+  --ink-quiet:       #8A7460;   /* Captions, helpers */
+  --rule:            rgba(38, 23, 18, 0.10); /* Hairlines */
+  --rule-strong:     rgba(38, 23, 18, 0.18);
+
+  /* Legacy aliases (kept so older preview cards still work) */
+  --burgundy:        var(--ink);
+  --burgundy-85:     #3A2519;
+  --burgundy-70:     var(--ink-soft);
+  --burgundy-50:     var(--ink-quiet);
+  --burgundy-20:     #D6C5B7;
+  --burgundy-10:     #EADCC8;
+  --amber:           var(--persimmon);
+  --amber-deep:      var(--persimmon-deep);
+  --amber-bright:    #F08056;
+  --amber-soft:      var(--persimmon-soft);
+
+  /* Semantic (functional — the brand colors do most of the work) */
+  --success:         var(--sage-deep);
+  --danger:          var(--persimmon-deep);
+
+  /* Surfaces */
+  --bg:              var(--cream);
+  --bg-elevated:     var(--paper);
+  --bg-inverse:      var(--ink);
+
+  /* ====================================================
+     TYPE — SCALES
+     One typeface: Switzer. It does everything from the
+     94px display lockup down to 11px legal print.
+     The wordmark itself is the only thing using its
+     own custom display face (provided as PNG).
+     ==================================================== */
+  --font-sans:    "Switzer", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Switzer", ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  /* Weights — name them so semantics are obvious */
+  --w-regular:   400;
+  --w-medium:    500;
+  --w-semibold:  600;
+  --w-bold:      700;
+  --w-extrabold: 800;
+  --w-black:     900;
+
+  /* Sizes (rem-friendly px). The brand likes BIG headers. */
+  --t-display-xl: clamp(60px, 9vw, 128px);   /* Hero "Come bien. / Siempre." */
+  --t-display:    clamp(48px, 6vw, 88px);    /* Section openers */
+  --t-h1:         clamp(40px, 4.5vw, 64px);
+  --t-h2:         clamp(32px, 3.5vw, 48px);
+  --t-h3:         28px;
+  --t-h4:         22px;
+  --t-eyebrow:    13px;        /* Small ALL-CAPS pre-headers */
+  --t-lead:       21px;        /* Hero subhead, intro paragraphs */
+  --t-body:       17px;
+  --t-small:      15px;
+  --t-caption:    13px;
+  --t-legal:      12px;
+
+  /* Line-heights — the chunky weights need tight leading */
+  --lh-tight:    0.95;   /* For display + h1 */
+  --lh-snug:     1.10;
+  --lh-normal:   1.45;
+  --lh-relaxed:  1.6;
+
+  /* Letter-spacing */
+  --ls-display:    -0.025em;   /* Big type tightens up */
+  --ls-heading:    -0.015em;
+  --ls-body:        0;
+  --ls-eyebrow:     0.14em;    /* For the ALL CAPS eyebrow tag */
+
+  /* ====================================================
+     SHAPE & DEPTH
+     ==================================================== */
+  --r-xs:   6px;
+  --r-sm:  10px;
+  --r-md:  16px;
+  --r-lg:  24px;
+  --r-xl:  32px;
+  --r-pill: 999px;
+
+  --shadow-flat:    none;
+  --shadow-card:    0 1px 0 rgba(35,0,7,0.06), 0 8px 24px -8px rgba(35,0,7,0.10);
+  --shadow-lift:    0 12px 36px -12px rgba(35,0,7,0.18), 0 2px 4px rgba(35,0,7,0.04);
+  --shadow-pop:     0 24px 60px -20px rgba(35,0,7,0.28);
+  --shadow-inset:   inset 0 0 0 1px var(--rule);
+
+  /* ====================================================
+     SPACING — 4px base, named for intent
+     ==================================================== */
+  --s-0:    0;
+  --s-1:    4px;
+  --s-2:    8px;
+  --s-3:   12px;
+  --s-4:   16px;
+  --s-5:   24px;
+  --s-6:   32px;
+  --s-7:   48px;
+  --s-8:   64px;
+  --s-9:   96px;
+  --s-10: 128px;
+  --s-11: 160px;
+
+  --gutter:    clamp(20px, 4vw, 48px);
+  --container: 1200px;
+}
+
+/* ====================================================
+   SEMANTIC ELEMENT STYLES
+   Drop colors_and_type.css into any artifact and the
+   raw HTML tags already look like Matlyst.
+   ==================================================== */
+
+html, body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--t-body);
+  line-height: var(--lh-relaxed);
+  font-weight: var(--w-regular);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  color: var(--ink);
+  margin: 0;
+  text-wrap: balance;
+}
+
+h1 { font-size: var(--t-h1); font-weight: var(--w-black);    line-height: var(--lh-tight); letter-spacing: var(--ls-display); }
+h2 { font-size: var(--t-h2); font-weight: var(--w-extrabold); line-height: var(--lh-snug);  letter-spacing: var(--ls-heading); }
+h3 { font-size: var(--t-h3); font-weight: var(--w-bold);      line-height: 1.2;             letter-spacing: var(--ls-heading); }
+h4 { font-size: var(--t-h4); font-weight: var(--w-semibold);  line-height: 1.3;             letter-spacing: var(--ls-heading); }
+
+p   { margin: 0; line-height: var(--lh-relaxed); text-wrap: pretty; }
+a   { color: var(--ink); text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+a:hover { color: var(--amber-deep); }
+
+small      { font-size: var(--t-caption); color: var(--ink-soft); }
+strong, b  { font-weight: var(--w-semibold); }
+
+/* Utility text styles — apply with class on any element */
+.t-eyebrow {
+  font-size: var(--t-eyebrow);
+  font-weight: var(--w-semibold);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.t-lead {
+  font-size: var(--t-lead);
+  line-height: 1.5;
+  color: var(--ink-soft);
+  font-weight: var(--w-regular);
+}
+.t-display    { font-family: var(--font-display); font-weight: var(--w-black);    font-size: var(--t-display);    line-height: var(--lh-tight); letter-spacing: var(--ls-display); }
+.t-display-xl { font-family: var(--font-display); font-weight: var(--w-black);    font-size: var(--t-display-xl); line-height: var(--lh-tight); letter-spacing: var(--ls-display); }
+.t-mono-num   { font-variant-numeric: tabular-nums; }
+
+::selection { background: var(--persimmon); color: #fff; }

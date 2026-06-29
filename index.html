@@ -1,10 +1,17 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" style="background-color:#0a0503">
 <head>
   <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="f89d2e6f-4065-4c8c-ba84-7002b4a1b440" data-blockingmode="auto" type="text/javascript"></script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#FBF8F2" />
+  <meta name="theme-color" content="#ffffff" />
+  <style>
+    /* Critical: paint the loader dark from the very first frame so the
+       default white body never flashes before landing.css loads. */
+    html { background-color: #0a0503; }
+    body { background-color: #0a0503; }
+    #loader { background-color: #000; }
+  </style>
 
   <title>Matlyst — La app de recomendaciones de restaurantes que sí te va a funcionar</title>
   <meta name="description" content="Matlyst es la red social gastronómica donde descubres restaurantes recomendados por gente con tu mismo gusto. Únete a la waiting list y sé el primero en probarla." />
@@ -24,7 +31,25 @@
   <link rel="apple-touch-icon" href="assets/matlyst-mark.png" />
 
   <link rel="preload" href="fonts/Switzer-Regular.woff" as="font" type="font/woff" crossorigin />
-  <link rel="preload" href="fonts/Switzer-Extrabold.woff" as="font" type="font/woff" crossorigin />
+  <link rel="preload" href="fonts/Switzer-Medium.woff" as="font" type="font/woff" crossorigin />
+  <link rel="preload" href="assets/loader/face-1.jpg" as="image" />
+  <link rel="preload" href="assets/loader/face-2.jpg" as="image" />
+  <link rel="preload" href="assets/loader/face-3.jpg" as="image" />
+  <link rel="preload" href="assets/loader/face-4.jpg" as="image" />
+
+  <!-- Community photos: warm the cache during the loader so the parallax
+       gallery has no pop-in when the user scrolls to it. -->
+  <link rel="prefetch" href="assets/community/comm-p1.jpg" as="image" />
+  <link rel="prefetch" href="assets/community/comm-p2.jpg" as="image" />
+  <link rel="prefetch" href="assets/community/comm-p3.jpg" as="image" />
+  <link rel="prefetch" href="assets/community/comm-p4.jpg" as="image" />
+  <link rel="prefetch" href="assets/community/comm-p5.jpg" as="image" />
+  <link rel="prefetch" href="assets/community/comm-l1.jpg" as="image" />
+  <link rel="prefetch" href="assets/community/comm-l2.jpg" as="image" />
+  <link rel="prefetch" href="assets/community/comm-l3.jpg" as="image" />
+  <link rel="prefetch" href="assets/community/comm-l4.jpg" as="image" />
+  <link rel="prefetch" href="assets/community/comm-sq1.jpg" as="image" />
+  <link rel="prefetch" href="assets/community/comm-sq2.jpg" as="image" />
 
   <link rel="stylesheet" href="styles/colors_and_type.css" />
   <link rel="stylesheet" href="styles/landing.css" />
@@ -77,7 +102,7 @@
       {"@type":"Question","name":"¿Cuándo estará disponible Matlyst?","acceptedAnswer":{"@type":"Answer","text":"Matlyst está actualmente en fase de desarrollo y lanzamiento. Puedes unirte a la lista de espera para recibir acceso prioritario antes de la apertura al público general."}},
       {"@type":"Question","name":"¿Matlyst es gratuita?","acceptedAnswer":{"@type":"Answer","text":"Sí. Matlyst será gratuita para todos los usuarios en su lanzamiento. Únete a la lista de espera para ser el primero en descargarlo."}},
       {"@type":"Question","name":"¿En qué se diferencia Matlyst de TripAdvisor o Google Maps?","acceptedAnswer":{"@type":"Answer","text":"La diferencia principal es que en Matlyst las recomendaciones vienen de personas reales de tu comunidad cuyos gustos conoces y valoras. A diferencia de TripAdvisor o Google Maps, donde cualquier persona puede dejar una reseña sin contexto, Matlyst te permite conectar con gente que comparte tus preferencias gastronómicas y filtrar el ruido."}},
-      {"@type":"Question","name":"¿Matlyst funciona en toda España?","acceptedAnswer":{"@type":"Answer","text":"Sí. El lanzamiento inicial tiene cobertura nacional en España, con especial foco en ciudades como Madrid, Barcelona, Valencia, Sevilla o San Sebastián."}},
+      {"@type":"Question","name":"¿Dónde está disponible Matlyst?","acceptedAnswer":{"@type":"Answer","text":"Matlyst funciona en cualquier parte del mundo. Si tu amigo vive en Ciudad de México y tú en Madrid, verás sus restaurantes favoritos de México. Si viajas a Buenos Aires, descubres qué recomienda tu gente allí. Matlyst va contigo y con las personas que te importan, sin fronteras."}},
       {"@type":"Question","name":"¿Puedo recomendar cualquier tipo de restaurante?","acceptedAnswer":{"@type":"Answer","text":"Sí. Desde el bar de tapas de toda la vida hasta el restaurante con estrella Michelin, todo tiene cabida si tú lo consideras una buena recomendación."}},
       {"@type":"Question","name":"¿Cómo sabe Matlyst qué restaurantes me van a gustar?","acceptedAnswer":{"@type":"Answer","text":"Matlyst construye tu perfil gastronómico a partir de tus preferencias, tus recomendaciones y las personas que sigues. Cuanto más la uses, más personalizado se vuelve tu feed de descubrimiento."}}
     ]
@@ -85,6 +110,88 @@
   </script>
 </head>
 <body>
+  <div id="loader" aria-hidden="true">
+    <p class="loader__tagline">Los restaurantes que recomienda tu gente</p>
+    <div class="loader__film">
+      <div class="loader__frame" style="background-image: url('assets/loader/face-1.jpg');"></div>
+      <div class="loader__frame" style="background-image: url('assets/loader/face-2.jpg');"></div>
+      <div class="loader__frame" style="background-image: url('assets/loader/face-3.jpg');"></div>
+      <div class="loader__frame" style="background-image: url('assets/loader/face-4.jpg');"></div>
+    </div>
+    <div class="loader__logo-wrap">
+      <img class="loader__logo-img" src="assets/matlyst-wordmark-loader.png" alt="Matlyst" />
+    </div>
+  </div>
+  <script>
+    (function () {
+      var loader = document.getElementById('loader');
+      if (!loader) return;
+      var root = document.getElementById('root');
+      if (root) root.style.opacity = '0';
+
+      function revealLanding() {
+        // Make the landing instantly present (no fade) so it sits ready
+        // BEHIND the still-opaque loader. The loader then fades out on top
+        // of it — eliminating any cross-fade flash of the light page bg.
+        if (!root) return;
+        root.style.transition = 'none';
+        root.style.opacity = '1';
+      }
+      function removeLoader() {
+        if (loader.parentNode) loader.parentNode.removeChild(loader);
+      }
+      function finishCrossfade() {
+        revealLanding();
+        // Next frame: fade only the loader away, revealing the landing under it.
+        requestAnimationFrame(function () {
+          loader.classList.add('is-out');
+          setTimeout(removeLoader, 450);
+        });
+      }
+
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce) {
+        // Reduced motion: hold briefly, then reveal with no animation.
+        setTimeout(function () { revealLanding(); removeLoader(); }, 100);
+        return;
+      }
+
+      var frames = loader.querySelectorAll('.loader__frame');
+      var logo = loader.querySelector('.loader__logo-img');
+      var FRAME_MS = 480; // per-frame cadence — must match the animation-delay
+                          // steps on .loader__frame in landing.css.
+
+      // The frame fade-in sequence runs entirely in CSS (compositor), so its
+      // rhythm stays perfectly even no matter how busy the main thread is.
+      // JS only schedules the finale, after every frame has had its full turn
+      // — so nothing is ever cut short.
+      setTimeout(startFinale, FRAME_MS * frames.length);
+
+      function startFinale() {
+        // 1. fade out tagline + film (0.4s)
+        loader.classList.add('is-dispersing');
+        setTimeout(flyLogo, 400);
+      }
+
+      function flyLogo() {
+        var navLogo = document.querySelector('.nav__logo .wm') || document.querySelector('.nav__logo');
+        if (!navLogo || !logo) { finishCrossfade(); return; }
+
+        var s = logo.getBoundingClientRect();
+        var e = navLogo.getBoundingClientRect();
+        var scale = e.height / s.height;
+        var tx = e.left - s.left;
+        var ty = (e.top + e.height / 2) - (s.top + s.height / 2);
+
+        logo.classList.add('is-flying');
+        logo.getBoundingClientRect(); // force reflow before transition
+        logo.style.transform = 'translate(' + tx + 'px, ' + ty + 'px) scale(' + scale + ')';
+
+        // 2. when the logo arrives at the navbar, fade the landing in (0.4s)
+        setTimeout(finishCrossfade, 600);
+      }
+    })();
+  </script>
   <a href="#main" class="visually-hidden" style="position:absolute;left:-9999px;">Saltar al contenido</a>
   <div id="root"></div>
 
@@ -92,6 +199,7 @@
   <script type="text/babel" src="components/Icons.jsx"></script>
   <script type="text/babel" src="components/Nav.jsx"></script>
   <script type="text/babel" src="components/Hero.jsx"></script>
+  <script type="text/babel" src="components/MarqueeGallery.jsx"></script>
   <script type="text/babel" src="components/Sections.jsx"></script>
   <script type="text/babel" src="components/WaitingList.jsx"></script>
   <script type="text/babel" src="components/FaqSection.jsx"></script>
@@ -104,9 +212,9 @@
           <Nav />
           <main id="main">
             <Hero />
+            <MarqueeGallery />
             <ProblemSection />
             <WhatIsSection />
-            <HowItWorksSection />
             <FeaturesSection />
             <SocialProofSection />
             <WaitingListSection />
@@ -117,6 +225,34 @@
       );
     }
     ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+
+  <!-- ==================== Smooth scroll (Lenis) ==================== -->
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script>
+    // Lenis smooth scroll — lerp (continuous damping) mode so the scroll
+    // velocity is smoothed no matter how hard the trackpad/wheel is flicked.
+    // A strong gesture is absorbed and eased instead of rocketing the page.
+    // Disabled under reduced-motion.
+    (function () {
+      if (!window.Lenis) return;
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var lenis = new Lenis({
+        // lerp mode (no duration/easing): every frame the page eases a
+        // fraction toward the target → naturally damps spikes in velocity.
+        lerp: 0.075,
+        smoothWheel: true,
+        // Lower multiplier so a hard flick travels a sane distance, not "off
+        // to who-knows-where". Tune up if normal scrolling feels too slow.
+        wheelMultiplier: 0.7,
+        touchMultiplier: 1.1,
+        // Native momentum on touch feels better than smoothing it.
+        syncTouch: false
+      });
+      window.__lenis = lenis;
+      function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+      requestAnimationFrame(raf);
+    })();
   </script>
 
   <!-- ==================== App scripts (reveal, smooth scroll, cookies) ==================== -->
@@ -164,6 +300,24 @@
       const nodes = Array.from(document.querySelectorAll(targets.join(',')))
         .filter(n => !n.closest('#que-es')); // #que-es has its own choreography
       nodes.forEach(n => n.setAttribute('data-reveal', ''));
+
+      // Stagger: 100ms between elements within the same section, so a
+      // section's pieces cascade in rather than all popping at once.
+      const revReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!revReduce) {
+        const groups = new Map();
+        nodes.forEach(n => {
+          const sec = n.closest('section, footer, .feat, .community') || document.body;
+          const arr = groups.get(sec) || [];
+          arr.push(n);
+          groups.set(sec, arr);
+        });
+        groups.forEach(arr => {
+          arr.forEach((n, i) => {
+            n.style.transitionDelay = (Math.min(i, 6) * 100) + 'ms';
+          });
+        });
+      }
 
       // rAF-throttled getBoundingClientRect check. Reliable in any iframe /
       // preview / embedded webview where IntersectionObserver is throttled.
@@ -271,7 +425,14 @@
           const el = document.getElementById(id);
           if (!el) return;
           e.preventDefault();
-          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // Route through Lenis when active so the anchor jump shares the
+          // same easing as wheel scrolling; fall back to native otherwise.
+          if (window.__lenis) {
+            window.__lenis.scrollTo(el, { offset: -100, duration: 1.2 });
+          } else {
+            const y = el.getBoundingClientRect().top + window.pageYOffset - 100;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+          }
           history.replaceState(null, '', '#' + id);
         });
       });

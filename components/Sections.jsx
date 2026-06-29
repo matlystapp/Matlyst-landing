@@ -5,7 +5,7 @@ function ProblemSection() {
   const pains = [
     {
       n: '01',
-      title: 'No sabes en quién fiarte',
+      title: 'No sabes de quién fiarte',
       body: 'Hay miles de reseñas, pero no sabes si quien las escribe tiene tu mismo gusto.',
     },
     {
@@ -34,10 +34,6 @@ function ProblemSection() {
           <p className="problem-prose__lead">
             Porque da igual cuántas opiniones haya si no confías en quien las escribe.
           </p>
-          <p>
-            Sigue a tus amigos, descubre sus sitios favoritos y guarda los tuyos
-            para cuando los necesites. <em>Eso es Matlyst.</em>
-          </p>
         </div>
 
         <ol className="pains" aria-label="Problemas concretos">
@@ -58,9 +54,9 @@ function WhatIsSection() {
   return (
     <section className="section" id="que-es">
       <div className="container">
-        <div className="section__head">
+        <div className="section__head section__head--left">
           <span className="eyebrow">Qué es Matlyst</span>
-          <h2>La app donde descubres restaurantes con la gente que ya conoces.</h2>
+          <h2>La app donde descubres restaurantes con la gente que ya conoces, estén donde estén.</h2>
           <p className="section__sub">
             Matlyst es la app donde sigues a tus amigos, descubres los restaurantes que les gustan y guardas los tuyos. Todo en un solo sitio.
           </p>
@@ -99,8 +95,8 @@ function VisualReco() {
   const chips = [
     {name:'Alejandra', place:'Sala de Despiece'},
     {name:'Iñaki',     place:'Bar Néstor'},
-    {name:'Carmen',    place:'Tickets'},
-    {name:'Marc',      place:'Disfrutar'},
+    {name:'Carmen',    place:'80 grados'},
+    {name:'Marc',      place:'Los 33'},
   ];
   return (
     <div style={{
@@ -154,14 +150,19 @@ function VisualDiscovery() {
   );
 }
 
-function Pin({x, y, color, big, delay = 0}) {
+function Pin({x, y, color, big, delay = 0, pop = false}) {
   const r = big ? 12 : 8;
   return (
     <g>
       <circle className="whatis-ping" style={{transformOrigin:`${x}px ${y}px`, animationDelay:`${delay}s`}} cx={x} cy={y} r={r} fill={color} />
-      <circle cx={x} cy={y+2} r={r*0.5} fill="rgba(38,23,18,0.15)" />
-      <circle cx={x} cy={y} r={r} fill={color} />
-      <circle cx={x} cy={y} r={r*0.4} fill="#fff" />
+      <g
+        className={pop ? 'mappin' : undefined}
+        style={pop ? {transformOrigin:`${x}px ${y}px`, transformBox:'view-box', animationDelay:`${delay}s`} : undefined}
+      >
+        <circle cx={x} cy={y+2} r={r*0.5} fill="rgba(0,0,0,0.15)" />
+        <circle cx={x} cy={y} r={r} fill={color} />
+        <circle cx={x} cy={y} r={r*0.4} fill="#fff" />
+      </g>
     </g>
   );
 }
@@ -176,7 +177,7 @@ function ChipMock({name, place, color, shift = 0}) {
       alignItems: 'center',
       gap: 10,
       transform: `translateX(${shift}px)`,
-      boxShadow: '0 4px 14px -6px rgba(38,23,18,0.18)',
+      boxShadow: '0 4px 14px -6px rgba(0,0,0,0.18)',
     }}>
       <div style={{
         width: 22, height: 22, borderRadius: 999,
@@ -197,7 +198,7 @@ function ConstellationOfAvatars() {
     {x: 80, y: 50, r: 22, color:'#E35336', n:'A'},
     {x: 150, y: 30, r: 18, color:'#4AABE8', n:'I'},
     {x: 175, y: 90, r: 24, color:'#98A869', n:'C'},
-    {x: 60, y: 100, r: 16, color:'#261712', n:'M'},
+    {x: 60, y: 100, r: 16, color:'#050505', n:'M'},
     {x: 120, y: 78, r: 20, color:'#E35336', n:'L'},
   ];
   return (
@@ -241,7 +242,7 @@ function HowItWorksSection() {
   return (
     <section className="section" id="como-funciona">
       <div className="container">
-        <div className="section__head">
+        <div className="section__head section__head--left">
           <span className="eyebrow">Cómo funciona</span>
           <h2>Tan fácil como seguir a tus amigos</h2>
           <p className="section__sub">
@@ -318,7 +319,7 @@ function HowSaveViz() {
 }
 
 function HowTrustViz() {
-  const rows = ['Casa Pepe', 'Tickets', 'Disfrutar'];
+  const rows = ['Casa Pepe', '80 grados', 'Los 33'];
   return (
     <div className="howtrust">
       <div className="howtrust__head">
@@ -336,41 +337,98 @@ function HowTrustViz() {
 }
 
 function FeaturesSection() {
+  const features = [
+    {
+      title: 'Descubre restaurantes en cualquier ciudad',
+      desc: 'Madrid, Barcelona, Bogotá, A Coruña, Buenos Aires, entre muchas otras ... ',
+      tone: 'orange',
+      Visual: CityListVisual,
+    },
+    {
+      title: 'Sigue a quien tiene buen gusto',
+      desc: 'Conecta con las personas de tu entorno que sabes que aciertan siempre. Si a ellas les gusta, es que vale la pena.',
+      tone: 'blue',
+      Visual: TasteProfileVisual,
+    },
+    {
+      title: 'Guarda y organiza tus favoritos',
+      desc: 'Crea tus propias listas: Para grupos grandes con amigos, Con clientes, Cena romántica. Lo que quieras.',
+      tone: 'green',
+      Visual: ListsVisual,
+    },
+    {
+      title: 'Explora lo que hay cerca',
+      desc: 'Abre el mapa, encuentra lo que hay cerca y navega por las etiquetas y listas de tus amigos. Todo organizado, todo a golpe de vista.',
+      tone: 'cream',
+      Visual: MapVisual,
+    },
+  ];
+
+  const [active, setActive] = React.useState(0);
+  const paneRefs = React.useRef([]);
+
+  React.useEffect(() => {
+    let raf = 0;
+    const measure = () => {
+      raf = 0;
+      const mid = window.innerHeight / 2;
+      let best = 0, bestDist = Infinity;
+      paneRefs.current.forEach((el, i) => {
+        if (!el) return;
+        const r = el.getBoundingClientRect();
+        const c = r.top + r.height / 2;
+        const d = Math.abs(c - mid);
+        if (d < bestDist) { bestDist = d; best = i; }
+      });
+      setActive(best);
+    };
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(measure); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    measure();
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
+
   return (
-    <section className="section" id="features" style={{background:'var(--cream-deep)'}}>
+    <section className="section feat" id="features" style={{background:'#ffffff'}}>
       <div className="container">
         <div className="section__head">
           <span className="eyebrow">Funciones</span>
           <h2>Descubre, guarda y comparte restaurantes</h2>
+          <p className="section__sub">Crea tu perfil, sigue a tus amigos, descubre sus restaurantes y guarda los tuyos.</p>
         </div>
-        <div className="bento">
-          <div className="bento-tile bento-tile--persimmon">
-            <div className="bento-tile__copy">
-              <h3>Descubre restaurantes por ciudad</h3>
-              <p>Madrid, Barcelona, Sevilla, Donostia, A Coruña.</p>
+        <div className="feat__scroll">
+          <div className="feat__left">
+            <div className="feat__panels">
+              <div className="feat__panel" key={active}>
+                <span className="feat__index">0{active + 1}</span>
+                <h3>{features[active].title}</h3>
+                <p>{features[active].desc}</p>
+              </div>
             </div>
-            <CityListVisual />
           </div>
-          <div className="bento-tile">
-            <div className="bento-tile__copy">
-              <h3>Sigue a quien tiene buen gusto</h3>
-              <p>Conecta con las personas de tu entorno que sabes que aciertan siempre. Si a ellas les gusta, es que vale la pena.</p>
-            </div>
-            <TasteProfileVisual />
-          </div>
-          <div className="bento-tile">
-            <div className="bento-tile__copy">
-              <h3>Guarda y organiza tus favoritos</h3>
-              <p>Crea tus propias listas: <em style={{fontStyle:'normal',color:'var(--ink)',fontWeight:600}}>Pendientes</em>, <em style={{fontStyle:'normal',color:'var(--ink)',fontWeight:600}}>Con clientes</em>, <em style={{fontStyle:'normal',color:'var(--ink)',fontWeight:600}}>Cena romántica</em>. Lo que quieras.</p>
-            </div>
-            <ListsVisual />
-          </div>
-          <div className="bento-tile bento-tile--sage">
-            <div className="bento-tile__copy">
-              <h3>Explora lo que hay cerca</h3>
-              <p>Abre el mapa, encuentra lo que hay cerca y navega por las etiquetas y listas de tus amigos. Todo organizado, todo a golpe de vista.</p>
-            </div>
-            <MapVisual />
+          <div className="feat__right">
+            {features.map((f, i) => {
+              const V = f.Visual;
+              return (
+                <div className="feat__pane" key={i} ref={el => (paneRefs.current[i] = el)}>
+                  <div className="feat__panecopy">
+                    <span className="feat__index">0{i + 1}</span>
+                    <h3>{f.title}</h3>
+                    <p>{f.desc}</p>
+                  </div>
+                  <div className={"feat__stage feat__stage--" + f.tone}>
+                    <div className="feat__asset">
+                      <V />
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -406,6 +464,9 @@ function CityListVisual() {
     ['Sevilla', '47'],
     ['Donostia', '61'],
     ['A Coruña', '38'],
+    ['Ciudad de México', '112'],
+    ['Buenos Aires', '86'],
+    ['Bogotá', '73'],
   ];
   const row = ([city, count], key) => (
     <div className="cityrow" key={key}>
@@ -428,7 +489,7 @@ function CityListVisual() {
 
 function ListsVisual() {
   const lists = [
-    {n:'Pendientes', c: 'var(--persimmon)', count: 24},
+    {n:'Para grupos grandes con amigos', c: 'var(--persimmon)', count: 24},
     {n:'Con clientes', c: 'var(--ink)', count: 8},
     {n:'Cena romántica', c: 'var(--sage)', count: 12},
     {n:'Brunch domingo', c: 'var(--sky)', count: 6},
@@ -438,7 +499,7 @@ function ListsVisual() {
       {lists.map((l,i)=>(
         <div key={i} className="listtile" style={{
           background:'#fff', borderRadius:14, padding:'14px',
-          boxShadow:'0 8px 20px -10px rgba(38,23,18,0.18)',
+          boxShadow:'0 8px 20px -10px rgba(0,0,0,0.18)',
           display:'flex', flexDirection:'column', gap:8,
           animationDelay:`${i*0.6}s`,
         }}>
@@ -453,18 +514,20 @@ function ListsVisual() {
 
 function MapVisual() {
   return (
-    <div className="bento-viz" style={{height:160, borderRadius:18, overflow:'hidden', background:'rgba(255,255,255,0.18)', backdropFilter:'blur(8px)', boxShadow:'0 12px 28px -12px rgba(38,23,18,0.4)', border:'1px solid rgba(255,255,255,0.25)'}}>
-      <svg viewBox="0 0 280 160" style={{width:'100%', height:'100%', display:'block'}}>
-        <path d="M 0 90 Q 80 70 140 100 T 280 90" stroke="rgba(255,255,255,0.5)" strokeWidth="3" fill="none"/>
-        <path d="M 80 0 L 100 160" stroke="rgba(255,255,255,0.3)" strokeWidth="2" fill="none"/>
-        <path d="M 200 0 L 180 160" stroke="rgba(255,255,255,0.3)" strokeWidth="2" fill="none"/>
-        <rect x="120" y="20" width="40" height="40" rx="3" fill="rgba(255,255,255,0.08)"/>
-        <rect x="210" y="100" width="50" height="40" rx="3" fill="rgba(255,255,255,0.08)"/>
-        <rect x="20" y="30" width="50" height="40" rx="3" fill="rgba(255,255,255,0.08)"/>
-        <Pin x={140} y={80} color="#E35336" big delay={0}/>
-        <Pin x={50} y={60} color="#E35336" delay={0.6}/>
-        <Pin x={235} y={120} color="#E35336" delay={1.2}/>
-        <Pin x={180} y={40} color="#FBF8F2" delay={1.8}/>
+    <div className="bento-viz" style={{width:'100%', height:240, borderRadius:14, overflow:'hidden', background:'#F1F4F2'}}>
+      <svg viewBox="0 0 280 160" preserveAspectRatio="xMidYMid slice" style={{width:'100%', height:'100%', display:'block'}}>
+        <path d="M 0 90 Q 80 70 140 100 T 280 90" stroke="rgba(38,23,18,0.20)" strokeWidth="3" fill="none"/>
+        <path d="M 80 0 L 100 160" stroke="rgba(38,23,18,0.10)" strokeWidth="2" fill="none"/>
+        <path d="M 200 0 L 180 160" stroke="rgba(38,23,18,0.10)" strokeWidth="2" fill="none"/>
+        <rect x="120" y="20" width="40" height="40" rx="3" fill="rgba(38,23,18,0.05)"/>
+        <rect x="210" y="100" width="50" height="40" rx="3" fill="rgba(38,23,18,0.05)"/>
+        <rect x="20" y="30" width="50" height="40" rx="3" fill="rgba(38,23,18,0.05)"/>
+        <Pin x={62}  y={52}  color="#E35336" big delay={0}    pop/>
+        <Pin x={140} y={80}  color="#98A869"     delay={0.4}  pop/>
+        <Pin x={205} y={46}  color="#4AABE8" big delay={0.8}  pop/>
+        <Pin x={98}  y={116} color="#4AABE8"     delay={1.2}  pop/>
+        <Pin x={172} y={128} color="#98A869"     delay={1.6}  pop/>
+        <Pin x={220} y={118} color="#E35336" big delay={2.0}  pop/>
       </svg>
     </div>
   );
@@ -472,23 +535,23 @@ function MapVisual() {
 
 function SocialProofSection() {
   return (
-    <section className="section">
+    <section className="section" id="prueba-social">
       <div className="container">
         <div className="section__head">
-          <span className="eyebrow">Prueba social</span>
           <h2>Más de 2.400 personas ya están esperando</h2>
-          <p className="section__sub">
-            Foodies, viajeros, amigos que siempre saben dónde ir — todos construyendo juntos la mejor guía gastronómica.
-          </p>
+        </div>
+        <div className="proof__avatars">
+          <div className="proof__faces">
+            <img src="assets/user-marc.jpg" alt="Usuario registrado en Matlyst" />
+            <img src="assets/user-pablo.jpg" alt="Usuario registrado en Matlyst" />
+            <img src="assets/user-elena.jpg" alt="Usuaria registrada en Matlyst" />
+          </div>
+          <span className="proof__faces-label">Ya están dentro</span>
         </div>
         <div className="proof__stats">
           <div className="stat">
             <div className="stat__n">2.400+</div>
             <div className="stat__l">en la lista de espera</div>
-          </div>
-          <div className="stat">
-            <div className="stat__n">5</div>
-            <div className="stat__l">ciudades de lanzamiento</div>
           </div>
           <div className="stat">
             <div className="stat__n">100%</div>

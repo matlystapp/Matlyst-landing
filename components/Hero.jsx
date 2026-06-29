@@ -6,6 +6,26 @@
 
 function Hero() {
   const phoneRef = React.useRef(null);
+  const [email, setEmail] = React.useState('');
+  const [status, setStatus] = React.useState('idle'); // idle|invalid|loading|success|error
+
+  async function onSubmit(e) {
+    e.preventDefault();
+    if (status === 'loading') return;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) { setStatus('invalid'); return; }
+    setStatus('loading');
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.trim() }),
+      });
+      if (!res.ok) throw new Error();
+      setStatus('success');
+    } catch (err) {
+      setStatus('error');
+    }
+  }
 
   React.useEffect(() => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -35,28 +55,51 @@ function Hero() {
     <section className="hero" id="top">
       <div className="container hero__inner">
         <div>
-          <span className="eyebrow hero-rise" style={{animationDelay:'0ms'}}>La app de restaurantes que estabas esperando</span>
           <h1>
-            <span className="hero-line hero-rise" style={{animationDelay:'150ms'}}>Los restaurantes que recomienda</span>
-            <span className="hero-line accent hero-rise" style={{animationDelay:'300ms'}}>tu gente</span>
+            <span className="hero-line hero-rise" style={{animationDelay:'0ms'}}>Los restaurantes que recomienda</span>
+            <span className="hero-line accent hero-rise" style={{animationDelay:'150ms'}}>tu gente</span>
           </h1>
-          <p className="hero__sub hero-rise" style={{animationDelay:'450ms'}}>
-            Matlyst es la red social donde descubres restaurantes recomendados
-            por gente con tu mismo gusto — no por algoritmos, no por críticos anónimos.
+          <p className="hero__sub hero-rise" style={{animationDelay:'300ms'}}>
+            Matlyst es la app donde sigues a tus amigos, descubres
+            los restaurantes que les gustan estén donde estén, y
+            guardas los tuyos. Todo en un solo sitio.
           </p>
-          <div className="hero__cta-row hero-rise" style={{animationDelay:'600ms'}}>
-            <a href="#lista-espera" className="btn btn--primary">
-              Únete a la lista de espera
-              <Icon name="arrow-right" size={18} />
-            </a>
-            <a href="#como-funciona" className="btn btn--ghost">Cómo funciona</a>
-          </div>
-          <div className="hero__micro hero-rise" style={{animationDelay:'720ms'}}>
-            <span>Gratis</span>
-            <span className="dot">·</span>
-            <span>Sin spam</span>
-            <span className="dot">·</span>
-            <span>Acceso prioritario</span>
+          {status === 'success' ? (
+            <p className="hero__form-done hero-rise" style={{animationDelay:'450ms'}}>
+              ¡Ya estás dentro! Te avisamos en el lanzamiento.
+            </p>
+          ) : (
+            <form className="hero__form hero-rise" style={{animationDelay:'450ms'}} onSubmit={onSubmit} noValidate>
+              <input
+                type="email"
+                placeholder="Tu email"
+                value={email}
+                onChange={e => { setEmail(e.target.value); if (status !== 'idle') setStatus('idle'); }}
+                aria-label="Tu email"
+                autoComplete="email"
+                disabled={status === 'loading'}
+              />
+              <button type="submit" disabled={status === 'loading'}>
+                {status === 'loading' ? 'Enviando…' : <>Únete <Icon name="arrow-right" size={18} /></>}
+              </button>
+            </form>
+          )}
+          {(status === 'invalid' || status === 'error') && (
+            <p className="hero__form-err" role="alert">
+              {status === 'invalid' ? 'Introduce un email válido.' : 'Algo ha salido mal. Inténtalo de nuevo.'}
+            </p>
+          )}
+          <div className="hero__micro hero-rise" style={{animationDelay:'600ms'}}>
+            <div className="hero__avatars" aria-hidden="true">
+              {[
+                {src:'assets/user-marc.jpg', ring:'var(--persimmon)'},
+                {src:'assets/user-pablo.jpg', ring:'var(--sky)'},
+                {src:'assets/user-elena.jpg', ring:'var(--sage)'},
+              ].map((a, i) => (
+                <span key={i} className="hero__avatar" data-avatar={i + 1} style={{borderColor: a.ring, backgroundImage:`url(${a.src})`}}></span>
+              ))}
+            </div>
+            <span>2.400+ personas ya dentro</span>
           </div>
         </div>
 
@@ -85,7 +128,7 @@ const FEED = [
     photoGradient:'radial-gradient(60% 80% at 30% 30%, #6B8048 0%, transparent 60%), radial-gradient(60% 70% at 80% 70%, #E35336 0%, transparent 70%), linear-gradient(140deg, #3F2918 0%, #1F1208 100%)',
   },
   {
-    place:'Disfrutar', city:'Barcelona', tags:'Degustación · Creativa', rating:'5.0',
+    place:'80 grados', city:'Barcelona', tags:'Degustación · Creativa', rating:'5.0',
     name:'Carmen V.', avatarColor:'var(--sky)',
     photoGradient:'radial-gradient(60% 80% at 35% 25%, #8FC0E0 0%, transparent 60%), radial-gradient(60% 70% at 75% 75%, #4AABE8 0%, transparent 70%), linear-gradient(140deg, #2A4A5C 0%, #142430 100%)',
   },
@@ -115,10 +158,10 @@ function PhoneMockup() {
         <div style={{padding:'10px 22px 14px', display:'flex',justifyContent:'space-between',alignItems:'center'}}>
           <img src="assets/matlyst-wordmark.png" alt="Matlyst" style={{height:18,width:'auto'}} />
           <div style={{display:'flex',gap:8}}>
-            <div style={{width:30,height:30,borderRadius:999,background:'rgba(38,23,18,0.06)',display:'flex',alignItems:'center',justifyContent:'center',color:'var(--ink)'}}>
+            <div style={{width:30,height:30,borderRadius:999,background:'rgba(0,0,0,0.06)',display:'flex',alignItems:'center',justifyContent:'center',color:'var(--ink)'}}>
               <Icon name="compass" size={16} />
             </div>
-            <div style={{width:30,height:30,borderRadius:999,background:'rgba(38,23,18,0.06)',display:'flex',alignItems:'center',justifyContent:'center',color:'var(--ink)'}}>
+            <div style={{width:30,height:30,borderRadius:999,background:'rgba(0,0,0,0.06)',display:'flex',alignItems:'center',justifyContent:'center',color:'var(--ink)'}}>
               <Icon name="user-circle" size={16} />
             </div>
           </div>
@@ -134,7 +177,7 @@ function PhoneMockup() {
         </div>
 
         {/* Tab bar */}
-        <div style={{display:'flex', justifyContent:'space-around', padding:'14px 28px 22px', borderTop:'1px solid rgba(38,23,18,0.08)', color:'var(--ink)', background:'var(--paper)', position:'relative', zIndex:2}}>
+        <div style={{display:'flex', justifyContent:'space-around', padding:'14px 28px 22px', borderTop:'1px solid rgba(0,0,0,0.08)', color:'var(--ink)', background:'var(--paper)', position:'relative', zIndex:2}}>
           <Icon name="utensils"    size={20} />
           <Icon name="compass"     size={20} style={{opacity:0.4}}/>
           <Icon name="bookmark"    size={20} style={{opacity:0.4}}/>
@@ -153,8 +196,8 @@ function FeedCard({place, city, tags, rating, name, avatarColor, active, photoGr
       borderRadius: 18,
       overflow: 'hidden',
       boxShadow: active
-        ? '0 12px 28px -12px rgba(38,23,18,0.28)'
-        : '0 2px 6px -2px rgba(38,23,18,0.12)',
+        ? '0 12px 28px -12px rgba(0,0,0,0.28)'
+        : '0 2px 6px -2px rgba(0,0,0,0.12)',
     }}>
       <div style={{
         height: 88,

@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="styles/landing.css" />
 </head>
 <body>
-  <nav class="nav">
+  <nav class="nav" id="nav">
     <div class="container nav__inner">
       <a class="nav__logo" href="index.html" aria-label="Matlyst — inicio">
         <img class="wm" src="assets/matlyst-wordmark.png" alt="Matlyst" />
@@ -21,11 +21,21 @@
       <div class="nav__links">
         <a href="index.html#problema">El problema</a>
         <a href="index.html#que-es">Qué es</a>
-        <a href="index.html#como-funciona">Cómo funciona</a>
         <a href="index.html#features">Funciones</a>
         <a href="index.html#faq">FAQ</a>
       </div>
-      <a class="nav__cta" href="index.html#lista-espera">Únete a la lista de espera</a>
+      <div class="nav__actions">
+        <a class="nav__cta" href="index.html#lista-espera">Únete a la lista de espera</a>
+        <button type="button" class="nav__burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-mobile-menu" onclick="var n=document.getElementById('nav'),m=document.getElementById('nav-mobile-menu'),o=n.classList.toggle('is-open');this.setAttribute('aria-expanded',o);this.setAttribute('aria-label',o?'Cerrar menú':'Abrir menú');if(o){m.removeAttribute('hidden');}else{m.setAttribute('hidden','');}">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+    </div>
+    <div class="nav__mobile" id="nav-mobile-menu" hidden>
+      <a href="index.html#problema">El problema</a>
+      <a href="index.html#que-es">Qué es</a>
+      <a href="index.html#features">Funciones</a>
+      <a href="index.html#faq">FAQ</a>
     </div>
   </nav>
 
@@ -33,7 +43,7 @@
     <a class="legal__back" href="index.html">← Volver a Matlyst</a>
     <span class="legal__eyebrow">Legal</span>
     <h1>Política de Privacidad</h1>
-    <p class="legal__meta">Última actualización: 27 de mayo de 2026</p>
+    <p class="legal__meta">Última actualización: 13 de junio de 2026</p>
 
     <p>
       En Matlyst nos tomamos la privacidad en serio. Esta política explica qué
@@ -104,8 +114,10 @@
       necesarios para el funcionamiento del Sitio Web:
     </p>
     <ul>
-      <li><strong>Proveedor de email marketing</strong> — proveedor de email marketing
-      para gestionar la lista de espera. Servidores en la UE.</li>
+      <li><strong>Brevo (Sendinblue GmbH)</strong> — plataforma de email marketing
+      utilizada para gestionar tu alta en la lista de espera y enviarte las
+      comunicaciones sobre el lanzamiento de Matlyst. Actúa como encargada del
+      tratamiento conforme al artículo 28 RGPD; servidores en la Unión Europea.</li>
       <li><strong>Google Ireland Limited</strong> — Google Analytics 4 con IP
       anonimizada. Cargado únicamente tras tu consentimiento.</li>
       <li><strong>Cybot A/S (Cookiebot)</strong> — gestión del consentimiento de
@@ -158,33 +170,35 @@
     </p>
   </main>
 
-  <footer class="footer">
+  <footer class="footer" id="footer">
     <div class="container">
-      <div class="footer__lockup">
-        <img class="wm" src="assets/matlyst-wordmark.png" alt="Matlyst" />
-        <span class="footer__tagline">Los restaurantes que recomienda <em>tu gente</em></span>
-      </div>
-      <div class="footer__row">
-        <nav class="footer__nav" aria-label="Navegación pie">
-          <a href="index.html">Inicio</a>
-          <a href="index.html#como-funciona">Cómo funciona</a>
-          <a href="index.html#lista-espera">Únete</a>
+      <div class="footer__top">
+        <span class="footer__brandline">Los restaurantes que recomienda <em>tu gente</em></span>
+        <nav class="footer__col" aria-label="Navegación pie">
+          <span class="footer__coltitle">Navegación</span>
+          <a href="index.html#problema">El problema</a>
+          <a href="index.html#que-es">Qué es</a>
+          <a href="index.html#features">Funciones</a>
           <a href="index.html#faq">FAQ</a>
-          <a href="mailto:matlyst.app@gmail.com">Contacto</a>
         </nav>
-        <nav class="footer__social" aria-label="Redes sociales">
+        <div class="footer__col">
+          <span class="footer__coltitle">Contacto</span>
+          <a href="mailto:matlyst.app@gmail.com">matlyst.app@gmail.com</a>
           <a href="https://instagram.com/matlyst.app" target="_blank" rel="noreferrer">Instagram</a>
-          <a href="https://tiktok.com/@matlyst" target="_blank" rel="noreferrer">TikTok</a>
-          <a href="https://x.com/matlyst" target="_blank" rel="noreferrer">Twitter/X</a>
+        </div>
+        <nav class="footer__col" aria-label="Legales">
+          <span class="footer__coltitle">Legal</span>
+          <a href="aviso-legal.html">Aviso Legal</a>
+          <a href="politica-de-privacidad.html">Privacidad</a>
+          <a href="politica-de-cookies.html">Cookies</a>
         </nav>
       </div>
-      <div class="footer__bottom">
-        <span>© 2025 Matlyst</span>
-        <span class="footer__legal">
-          <a href="aviso-legal.html">Aviso Legal</a><span>·</span>
-          <a href="politica-de-privacidad.html">Política de Privacidad</a><span>·</span>
-          <a href="politica-de-cookies.html">Política de Cookies</a>
-        </span>
+      <div class="footer__big" aria-hidden="true">
+        <img class="footer__bigwm" src="assets/matlyst-wordmark-white.png" alt="" />
+      </div>
+      <div class="footer__base">
+        <span>© 2026 Matlyst. Todos los derechos reservados.</span>
+        <a href="#" class="footer__totop" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">Volver arriba ↑</a>
       </div>
     </div>
   </footer>
