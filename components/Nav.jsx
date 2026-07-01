@@ -23,7 +23,10 @@ function Nav() {
           ))}
         </div>
         <div className="nav__actions">
-          <a className="nav__cta" href="#lista-espera" onClick={() => setOpen(false)}>Únete a la lista de espera</a>
+          <a className="nav__cta" href="#lista-espera" onClick={() => setOpen(false)}>
+            <span className="nav__cta-full">Únete a la lista de espera</span>
+            <span className="nav__cta-short">Únete</span>
+          </a>
           <button
             type="button"
             className="nav__burger"

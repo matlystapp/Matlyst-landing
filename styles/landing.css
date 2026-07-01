@@ -12,34 +12,57 @@
   inset: 0;
   z-index: 9999;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  gap: 40px;
-  padding: 0 clamp(44px, 9vw, 180px);
+  justify-content: center;
+  gap: clamp(26px, 4.2vh, 46px);
+  padding: clamp(32px, 6vw, 64px);
   background-color: #000000;
 }
-/* Left — tagline */
+/* Brand wordmark — top of the stack (flies to the navbar at the end) */
+.loader__logo-wrap {
+  order: 1;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.loader__logo-img {
+  height: clamp(30px, 4.4vh, 44px);
+  width: auto;
+  display: block;
+  /* white "Matlyst" wordmark + amber smiley, baked for the black loader bg */
+  transform-origin: left center;
+  will-change: transform;
+}
+/* Tagline — supporting caption, centred below the film */
 .loader__tagline {
-  flex: 1 1 0;
-  min-width: 0;
-  max-width: 320px;
+  order: 3;
+  flex: 0 0 auto;
+  max-width: 30ch;
   margin: 0;
   font-family: var(--font-sans);
   font-weight: 500;
-  font-size: 24px;
-  line-height: 1.5;
-  color: #ffffff;
+  font-size: clamp(15px, 2.4vw, 19px);
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+  text-align: center;
+  text-wrap: balance;
+  color: rgba(255, 255, 255, 0.66);
 }
 /* Center — rapid film strip of restaurant photos */
 .loader__film {
   position: relative;
+  order: 2;
   flex: 0 0 auto;
   width: auto;
-  height: min(62vh, 440px);
+  height: min(54vh, 460px);
+  max-width: 86vw;
   aspect-ratio: 3 / 4;
-  border-radius: 14px;
+  border-radius: 16px;
   overflow: hidden;
   background-color: #1a0f0a;
+  box-shadow: 0 40px 90px -40px rgba(0, 0, 0, 0.8);
 }
 .loader__frame {
   position: absolute;
@@ -79,22 +102,6 @@
     rgba(20,12,8,0.10);
   z-index: 2;
 }
-/* Right — Matlyst logo (flies to the navbar at the end) */
-.loader__logo-wrap {
-  flex: 1 1 0;
-  min-width: 0;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-.loader__logo-img {
-  height: 56px;
-  width: auto;
-  display: block;
-  /* white "Matlyst" wordmark + amber smiley, baked for the black loader bg */
-  transform-origin: left center;
-  will-change: transform;
-}
 .loader__logo-img.is-flying {
   transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
@@ -104,10 +111,12 @@
   opacity: 0;
   transition: opacity 0.4s ease;
 }
-/* Final — loader fades away as the landing fades in */
+/* Final — loader fades away as the landing fades in.
+   Long, smooth ease so the full-screen dark→light reveal is a graceful
+   dissolve, never an abrupt white flash. */
 #loader.is-out {
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -117,10 +126,8 @@
   #loader.is-out { transition: none; }
 }
 @media (max-width: 760px) {
-  #loader { flex-direction: column; justify-content: center; gap: 28px; padding: 32px; }
-  .loader__tagline { flex: 0 0 auto; max-width: 360px; text-align: center; order: 1; }
-  .loader__film { order: 2; height: min(48vh, 380px); }
-  .loader__logo-wrap { flex: 0 0 auto; justify-content: center; order: 3; }
+  #loader { gap: clamp(22px, 4vh, 34px); padding: 40px 26px; }
+  .loader__film { height: min(50vh, 420px); }
 }
 
 /* ============================================================
@@ -1618,25 +1625,25 @@ section[id], .section[id], .waitlist[id], #lista-espera, #problema, #que-es, #fe
 .footer__totop:hover { opacity: 0.65; }
 
 @media (max-width: 860px) {
-  .footer { padding: 72px 0 24px; }
+  .footer { min-height: auto; padding: 64px 0 24px; }
   .footer__top {
     grid-template-columns: 1fr;
     gap: 40px;
+    padding-bottom: 48px;
   }
   .footer__links {
     grid-template-columns: repeat(3, auto);
     justify-content: start;
     gap: 40px;
   }
-    padding-bottom: 56px;
-  }
   .footer__brandline { grid-column: 1 / -1; }
-  .footer__big { margin-bottom: 32px; }
+  .footer__big { margin-bottom: 28px; }
 }
 @media (max-width: 520px) {
-  .footer { padding: 56px 0 22px; }
-  .footer__top { grid-template-columns: 1fr; gap: 32px; padding-bottom: 44px; }
-  .footer__links { grid-template-columns: 1fr 1fr; gap: 28px 24px; }
+  .footer { padding: 48px 0 22px; }
+  .footer__top { gap: 32px; padding-bottom: 36px; }
+  .footer__links { grid-template-columns: 1fr 1fr; gap: 26px 20px; }
+  .footer__col a { font-size: 14px; }
   .footer__base { font-size: 12px; }
 }
 
@@ -2254,4 +2261,39 @@ section[id], .section[id], .waitlist[id], #lista-espera, #problema, #que-es, #fe
   }
   .waitlist__bullets .bullet { margin-top: 0; width: 28px; height: 28px; }
   .waitlist__bullets .bullet svg { width: 15px; height: 15px; }
+}
+
+/* ============================================================
+   RESPONSIVE HARDENING — consolidated mobile polish
+   Prevents horizontal overflow, tightens hero rhythm, shortens
+   the nav CTA on small phones, and trims dead space.
+   ============================================================ */
+
+/* Global safety net: no accidental horizontal scroll on phones.
+   Set on <html> (the scroll root) so the sticky nav keeps working. */
+html { overflow-x: hidden; }
+
+/* Nav CTA — full label on desktop/tablet, short label on small phones */
+.nav__cta-short { display: none; }
+@media (max-width: 520px) {
+  .nav__cta-full  { display: none; }
+  .nav__cta-short { display: inline; }
+  .nav__cta { padding: 11px 18px; font-size: 14px; }
+}
+
+/* Hero — tighter vertical rhythm once stacked, visual sized to content */
+@media (max-width: 920px) {
+  .hero { padding: 36px 0 8px; }
+  .hero__inner { gap: 40px; }
+  .hero__visual { height: auto; padding: 4px 0 12px; }
+}
+@media (max-width: 560px) {
+  .hero { padding: 24px 0 4px; }
+  .hero h1 { margin: 12px 0 20px; }
+  .hero__sub { margin-bottom: 18px; }
+}
+
+/* Community face-field — trim the full-height dead space on phones */
+@media (max-width: 640px) {
+  .community { min-height: 82vh; }
 }
