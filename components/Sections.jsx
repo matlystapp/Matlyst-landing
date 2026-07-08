@@ -495,7 +495,7 @@ function ListsVisual() {
     {n:'Brunch domingo', c: 'var(--sky)', count: 6},
   ];
   return (
-    <div className="bento-viz" style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:8}}>
+    <div className="bento-viz listsgrid">
       {lists.map((l,i)=>(
         <div key={i} className="listtile" style={{
           background:'#fff', borderRadius:14, padding:'14px',

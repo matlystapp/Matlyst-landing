@@ -169,7 +169,17 @@ function MarqueeGallery() {
     if (!reduce) { last = 0; rafRef.current = requestAnimationFrame(step); }
 
     let rt;
-    const onResize = () => { clearTimeout(rt); rt = setTimeout(() => { last = 0; build(); }, 160); };
+    let lastW = window.innerWidth;
+    const onResize = () => {
+      // Mobile browsers fire 'resize' when the URL bar shows/hides during
+      // scroll (height changes, width doesn't). Rebuilding on that resets
+      // every ball's position, so the field appears to "restart" / crash on
+      // every little scroll. Only rebuild on a real WIDTH change.
+      if (window.innerWidth === lastW) return;
+      lastW = window.innerWidth;
+      clearTimeout(rt);
+      rt = setTimeout(() => { last = 0; build(); }, 160);
+    };
     window.addEventListener('resize', onResize);
     return () => {
       cancelAnimationFrame(rafRef.current);

@@ -344,7 +344,10 @@
 .feat__asset .tastecard__overlap { font-size: 13px; }
 
 /* Lists — readable on white */
-.feat__asset .listtile { border: 1px solid rgba(0, 0, 0, 0.06); position: relative; transform-origin: center center; }
+.feat__asset .listtile { border: 1px solid rgba(0, 0, 0, 0.06); position: relative; transform-origin: center center; min-width: 0; }
+.listsgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.listtile { min-width: 0; }
+.listtile span { overflow-wrap: break-word; }
 
 @media (max-width: 900px) {
   .feat__scroll { grid-template-columns: 1fr; gap: 0; }
@@ -359,7 +362,14 @@
   .feat__panecopy { display: block; }
   .feat__panecopy h3 { font-size: 26px; line-height: 1.1; }
   .feat__panecopy p { font-size: 16px; }
-  .feat__stage { max-width: none; min-height: 0; padding: 40px; }
+  .feat__stage { max-width: none; min-height: 0; padding: 28px 22px; border-radius: 22px; }
+  .feat__asset { width: 100%; min-height: 0; padding: 22px; }
+}
+/* Below ~380px the 2-column list grid crushes long list names into a
+   handful of characters per line — drop to a single column so each
+   card keeps its own row and stays legible. */
+@media (max-width: 400px) {
+  .listsgrid { grid-template-columns: 1fr; }
 }
 @media (prefers-reduced-motion: reduce) {
   .feat__panel { animation: none; }
@@ -721,10 +731,14 @@ section[id], .section[id], .waitlist[id], #lista-espera, #problema, #que-es, #fe
   transform: scale(0.8);
   transform-origin: center;
   margin: -64px -32px;
+  /* Soft, warm, diffuse drop — supports depth without a hard square edge.
+     Warm ink alpha (per the design system, never cool black). Very heavy
+     blur and large negative spread so it reads as a gentle ambient glow
+     that melts into the cream, instead of a hard rectangle cutting between
+     the hero and the community section. */
   box-shadow:
-    0 50px 100px -30px rgba(0, 0, 0, 0.45),
-    0 20px 40px -20px rgba(0, 0, 0, 0.30),
-    0 1px 2px rgba(0, 0, 0, 0.20);
+    0 50px 130px -70px rgba(38, 23, 18, 0.20),
+    0 20px 60px -55px rgba(38, 23, 18, 0.12);
 }
 .phone__screen {
   width: 100%; height: 100%;
@@ -1070,7 +1084,7 @@ section[id], .section[id], .waitlist[id], #lista-espera, #problema, #que-es, #fe
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
-@media (max-width: 920px) { .whatis-grid { grid-template-columns: 1fr; } }
+@media (max-width: 920px) { .whatis-grid { grid-template-columns: 1fr; gap: 16px; } }
 .feature-card {
   background: var(--paper);
   border-radius: 20px;
@@ -1087,6 +1101,18 @@ section[id], .section[id], .waitlist[id], #lista-espera, #problema, #que-es, #fe
   position: relative;
   overflow: hidden;
   margin-bottom: 8px;
+}
+/* Cards adapt their own padding/visual height to the phone in hand —
+   36/32px of padding eats a fifth of a 375px screen otherwise, and the
+   fixed 180px visual reads oversized once the card itself has shrunk. */
+@media (max-width: 560px) {
+  .feature-card { padding: 24px 22px; gap: 14px; }
+  .feature-card__visual { height: 150px; }
+  .feature-card h3 { font-size: 20px; }
+}
+@media (max-width: 380px) {
+  .feature-card { padding: 20px 18px; }
+  .feature-card__visual { height: 132px; }
 }
 .feature-card h3 {
   font-family: var(--font-display); font-weight: 500; font-size: 22px;
@@ -2192,9 +2218,10 @@ section[id], .section[id], .waitlist[id], #lista-espera, #problema, #que-es, #fe
   display: flex; align-items: center; justify-content: space-between;
   padding: 9px 12px; margin-bottom: 2px; border-radius: 11px;
 }
-.cityrow__name { display: flex; align-items: center; gap: 8px; color: #fff; font-size: 13px; font-weight: 600; }
-.cityrow__pin { opacity: 0.8; display: inline-flex; }
-.cityrow__count { color: #fff; font-size: 11px; font-weight: 600; font-variant-numeric: tabular-nums; opacity: 0.82; }
+.cityrow { min-width: 0; }
+.cityrow__name { display: flex; align-items: center; gap: 8px; color: #fff; font-size: 13px; font-weight: 600; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cityrow__pin { opacity: 0.8; display: inline-flex; flex: none; }
+.cityrow__count { color: #fff; font-size: 11px; font-weight: 600; font-variant-numeric: tabular-nums; opacity: 0.82; flex: none; margin-left: 8px; }
 
 /* "Sigue a quien tiene buen gusto" — highlight rotativo */
 .tastecard {
@@ -2296,4 +2323,42 @@ html { overflow-x: hidden; }
 /* Community face-field — trim the full-height dead space on phones */
 @media (max-width: 640px) {
   .community { min-height: 82vh; }
+}
+
+/* Features assets — fill the card and size down on small phones */
+@media (max-width: 520px) {
+  .feat__pane { padding: 28px 0; gap: 20px; }
+  .feat__stage { padding: 22px 16px; }
+  .feat__asset { padding: 18px; }
+  .feat__asset .citylist { height: 200px; }
+  .feat__asset .cityrow { padding: 11px 12px; }
+  .feat__asset .tastecard { padding: 12px 14px; gap: 10px; }
+  .listtile { padding: 12px !important; }
+}
+/* Very small phones (iPhone SE and similar ~360-390px) — the asset card
+   itself is only ~260-280px wide at this point; trim padding/type once
+   more so rows never crowd their own text. */
+@media (max-width: 380px) {
+  .feat__stage { padding: 18px 12px; }
+  .feat__asset { padding: 14px; }
+  .feat__asset .citylist { height: 184px; }
+  .feat__asset .cityrow__name { font-size: 12px; }
+  .feat__asset .cityrow__count { font-size: 11px; }
+  .feat__asset .tastecard__av { width: 34px; height: 34px; font-size: 13px; }
+  .listtile { padding: 11px !important; }
+  .listtile span:nth-child(2) { font-size: 11px !important; }
+}
+
+/* Social proof — right-size the oversized stats + faces on mobile */
+@media (max-width: 560px) {
+  #prueba-social .section__head { margin-bottom: 28px; }
+  #prueba-social .section__head h2 { font-size: clamp(23px, 6.4vw, 28px); }
+  .proof__avatars { gap: 12px; margin-bottom: 26px; }
+  .proof__faces img { width: 44px; height: 44px; border-width: 2.5px; }
+  .proof__faces img + img { margin-left: -14px; }
+  .proof__faces-label { font-size: 13px; }
+  .proof__stats { gap: 14px; }
+  .stat { padding: 24px 22px; }
+  .stat__n { font-size: clamp(38px, 11vw, 48px); }
+  .stat__l { font-size: 11px; margin-top: 8px; letter-spacing: 0.04em; }
 }
