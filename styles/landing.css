@@ -1365,14 +1365,14 @@ section[id], .section[id], .waitlist[id], #lista-espera, #problema, #que-es, #fe
 }
 .waitlist__form input::placeholder { color: var(--ink-quiet); }
 .waitlist__form button {
-  background: var(--persimmon); color: #fff;
+  background: var(--ink); color: var(--cream);
   border: 0; border-radius: 8px;
   padding: 14px 22px;
   font-family: var(--font-sans); font-weight: 600; font-size: 14px;
   cursor: pointer; white-space: nowrap;
   transition: background 180ms, transform 120ms cubic-bezier(.2,.8,.2,1);
 }
-.waitlist__form button:hover { background: var(--persimmon-deep); }
+.waitlist__form button:hover { background: #3A2519; }
 .waitlist__form button:active { transform: scale(0.985); }
 .waitlist__micro {
   margin-top: 22px;
@@ -1462,14 +1462,14 @@ section[id], .section[id], .waitlist[id], #lista-espera, #problema, #que-es, #fe
 }
 .waitlist__form input::placeholder { color: var(--ink-quiet); }
 .waitlist__form button {
-  background: var(--persimmon); color: #fff;
+  background: var(--ink); color: var(--cream);
   border: 0; border-radius: 8px;
   padding: 14px 22px;
   font-family: var(--font-sans); font-weight: 600; font-size: 14px;
   cursor: pointer; white-space: nowrap;
   transition: background 180ms, transform 120ms cubic-bezier(.2,.8,.2,1);
 }
-.waitlist__form button:hover { background: var(--persimmon-deep); }
+.waitlist__form button:hover { background: #3A2519; }
 .waitlist__form button:active { transform: scale(0.985); }
 .waitlist__micro {
   margin-top: 22px;
