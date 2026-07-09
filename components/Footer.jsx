@@ -26,9 +26,9 @@ function Footer() {
 
             <nav className="footer__col" aria-label="Legales">
               <span className="footer__coltitle">Legal</span>
-              <a href="aviso-legal.html">Aviso Legal</a>
-              <a href="politica-de-privacidad.html">Privacidad</a>
-              <a href="politica-de-cookies.html">Cookies</a>
+              <a href="/aviso-legal">Aviso Legal</a>
+              <a href="/politica-de-privacidad">Privacidad</a>
+              <a href="/politica-de-cookies">Cookies</a>
             </nav>
           </div>
         </div>
