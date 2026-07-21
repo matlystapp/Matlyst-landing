@@ -1,0 +1,12 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["7VXG4N3W66.com.matlyst.app"],
+        "components": [
+          { "/": "/u/*", "comment": "Perfiles de usuario compartidos" }
+        ]
+      }
+    ]
+  }
+}
