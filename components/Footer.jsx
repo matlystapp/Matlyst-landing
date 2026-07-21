@@ -24,11 +24,18 @@ function Footer() {
               <a href="https://instagram.com/matlyst.app" target="_blank" rel="noreferrer">Instagram</a>
             </div>
 
-            <nav className="footer__col" aria-label="Legales">
-              <span className="footer__coltitle">Legal</span>
-              <a href="/aviso-legal">Aviso Legal</a>
-              <a href="/politica-de-privacidad">Privacidad</a>
-              <a href="/politica-de-cookies">Cookies</a>
+            <nav className="footer__col" aria-label="Legal — App">
+              <span className="footer__coltitle">Legal · App</span>
+              <a href="privacidad.html">Privacidad app</a>
+              <a href="terminos.html">Términos y condiciones</a>
+              <a href="eliminar-cuenta.html">Eliminar cuenta</a>
+            </nav>
+
+            <nav className="footer__col" aria-label="Legal — Web">
+              <span className="footer__coltitle">Legal · Web</span>
+              <a href="privacidad-web.html">Privacidad web</a>
+              <a href="cookies.html">Cookies</a>
+              <a href="aviso-legal.html">Aviso legal</a>
             </nav>
           </div>
         </div>

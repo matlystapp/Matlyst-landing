@@ -107,7 +107,7 @@ function WaitingListSection() {
             ))}
           </ul>
           <p className="waitlist__legal">
-            Al suscribirte aceptas nuestra <a href="/politica-de-privacidad">Política de Privacidad</a>.
+            Al suscribirte aceptas nuestra <a href="privacidad-web.html">Política de Privacidad</a>.
           </p>
         </div>
       </div>

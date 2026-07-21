@@ -1581,8 +1581,9 @@ section[id], .section[id], .waitlist[id], #lista-espera, #problema, #que-es, #fe
 }
 .footer__links {
   display: grid;
-  grid-template-columns: repeat(3, auto);
-  gap: 48px;
+  grid-template-columns: repeat(4, auto);
+  gap: 40px;
+  align-items: start;
 }
 .footer__brandline {
   font-family: var(--font-display);
@@ -1658,9 +1659,9 @@ section[id], .section[id], .waitlist[id], #lista-espera, #problema, #que-es, #fe
     padding-bottom: 48px;
   }
   .footer__links {
-    grid-template-columns: repeat(3, auto);
+    grid-template-columns: repeat(2, auto);
     justify-content: start;
-    gap: 40px;
+    gap: 40px 56px;
   }
   .footer__brandline { grid-column: 1 / -1; }
   .footer__big { margin-bottom: 28px; }
@@ -1874,6 +1875,10 @@ section[id], .section[id], .waitlist[id], #lista-espera, #problema, #que-es, #fe
   text-decoration: none;
 }
 .legal__back:hover { color: var(--persimmon); }
+.legal__lead { font-size: 17px; font-weight: 500; color: var(--ink); margin: 0 0 6px; }
+.legal blockquote { margin: 14px 0 24px; padding: 14px 18px; background: var(--cream-deep); border-radius: 12px; border-left: 3px solid var(--sky); }
+.legal blockquote p { margin: 0; font-size: 15px; }
+.legal code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.88em; background: var(--cream-deep); padding: 2px 6px; border-radius: 5px; }
 
 /* ============================================================
    waitlist form — error state
