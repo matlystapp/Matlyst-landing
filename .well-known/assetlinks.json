@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.matlyst.app",
+      "sha256_cert_fingerprints": [
+        "B7:3B:3D:2A:C9:91:1C:D1:92:AA:43:9E:AC:70:C4:8E:8D:1A:71:F1:74:F8:76:AE:2D:03:BF:41:60:3E:9A:55",
+        "C8:48:46:BF:77:8C:CD:37:95:9B:54:05:D8:43:7E:25:96:F4:E5:EF:AA:48:C6:C8:49:85:2E:88:FC:F4:FF:EB"
+      ]
+    }
+  }
+]
