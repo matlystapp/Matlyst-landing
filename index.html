@@ -294,6 +294,11 @@
       }
 
       // 1) Reveal-on-scroll — fade + slide up.
+      // IIFE a propósito: dentro hay un `return` temprano cuando existe
+      // IntersectionObserver. Sin este envoltorio ese return abortaba TODO el
+      // resto del arranque (coreografías de "El problema" y "Qué es", anclas),
+      // y esas secciones se quedaban invisibles.
+      (function setupReveal() {
       const targets = [
         '.section__head',
         '.section__sub',
@@ -374,6 +379,7 @@
       check(); // reveal anything already in view (hero head, etc.)
       window.addEventListener('scroll', schedule, { passive: true });
       window.addEventListener('resize', schedule);
+      })();
 
       // 1a-bis) Pausar las animaciones infinitas de las secciones que no se ven.
       //          Son bucles decorativos (feed del móvil, nodos, pings, listas):
@@ -397,6 +403,13 @@
         if (!prob) return;
         const reduceMo = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         if (reduceMo) { prob.classList.add('head-in', 'pains-in'); return; }
+        // Red de seguridad: si el detector de scroll no llega a disparar, la
+        // sección aparece igual en vez de quedarse invisible.
+        setTimeout(() => {
+          if (prob.getBoundingClientRect().top < (window.innerHeight || 0)) {
+            prob.classList.add('head-in', 'pains-in');
+          }
+        }, 2500);
 
         const headEl = prob.querySelector('.problem-head');
         const painsEl = prob.querySelector('.pains');
@@ -429,27 +442,21 @@
       (function () {
         const sec = document.querySelector('#que-es');
         if (!sec) return;
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-          sec.classList.add('whatis-in');
-          return;
+        const reveal = () => sec.classList.add('whatis-in');
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { reveal(); return; }
+        // IntersectionObserver: los listeners de scroll no siempre disparan bajo
+        // el scroll suave de Lenis, y si no disparan la sección se queda a
+        // opacity 0 para siempre. Red de seguridad a los 2,5s por si acaso.
+        if ('IntersectionObserver' in window) {
+          const io = new IntersectionObserver((entries) => {
+            if (entries.some(e => e.isIntersecting)) { reveal(); io.disconnect(); }
+          }, { rootMargin: '0px 0px -100px 0px', threshold: 0 });
+          io.observe(sec);
         }
-        let got = false, wframe = 0;
-        const vh = () => window.innerHeight || document.documentElement.clientHeight;
-        function wcheck() {
-          wframe = 0;
-          if (got) return;
+        setTimeout(() => {
           const r = sec.getBoundingClientRect();
-          if (r.top < vh() - 100 && r.bottom > 0) {
-            got = true;
-            sec.classList.add('whatis-in');
-            window.removeEventListener('scroll', wsched, { passive: true });
-            window.removeEventListener('resize', wsched);
-          }
-        }
-        function wsched() { if (wframe) return; wframe = requestAnimationFrame(wcheck); }
-        wcheck();
-        window.addEventListener('scroll', wsched, { passive: true });
-        window.addEventListener('resize', wsched);
+          if (r.top < (window.innerHeight || 0)) reveal();
+        }, 2500);
       })();
 
       // 2) Smooth scroll for in-page nav anchors only (href="#id").

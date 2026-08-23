@@ -10,9 +10,6 @@ function DownloadSection() {
         <div className="waitlist__card">
           <span className="eyebrow">Ya disponible</span>
           <h2>Descárgala y descubre dónde come tu gente</h2>
-          <p className="waitlist__sub">
-            Matlyst ya está en la App Store. Los restaurantes que recomienda tu gente, en tu iPhone.
-          </p>
 
           <div className="dl__actions">
             <a className="dl__store" href={APP_STORE_URL} target="_blank" rel="noreferrer">
