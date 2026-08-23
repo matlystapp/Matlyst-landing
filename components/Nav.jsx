@@ -23,9 +23,10 @@ function Nav() {
           ))}
         </div>
         <div className="nav__actions">
-          <a className="nav__cta" href="#lista-espera" onClick={() => setOpen(false)}>
-            <span className="nav__cta-full">Únete a la lista de espera</span>
-            <span className="nav__cta-short">Únete</span>
+          <a className="nav__cta" href="https://apps.apple.com/es/app/matlyst/id6781277252" target="_blank" rel="noreferrer" onClick={() => setOpen(false)}>
+            <AppleGlyph size={16} />
+            <span className="nav__cta-full">Descargar</span>
+            <span className="nav__cta-short">Descargar</span>
           </a>
           <button
             type="button"

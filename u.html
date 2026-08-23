@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#FBF8F2" />
+<meta name="robots" content="noindex,follow" />
+<!-- Banner nativo de Safari: dice ABRIR si la app está instalada, VER si no. -->
+<meta name="apple-itunes-app" content="app-id=6781277252" />
+<title>Matlyst</title>
+<!-- OG:START — la función api/u.mjs sustituye este bloque por el nombre y la
+     foto de la persona, para que la tarjeta de WhatsApp salga personalizada.
+     No tocar los marcadores OG:START / OG:END. -->
+<meta property="og:type" content="profile" />
+<meta property="og:site_name" content="Matlyst" />
+<meta property="og:title" content="Perfil en Matlyst" />
+<meta property="og:description" content="Mira sus restaurantes favoritos en Matlyst." />
+<meta property="og:image" content="https://www.matlyst.app/assets/matlyst-wordmark.png" />
+<meta name="twitter:card" content="summary" />
+<!-- OG:END -->
+<link rel="stylesheet" href="/styles/colors_and_type.css" />
+<style>
+html,body{margin:0;height:100%}
+body{background:var(--cream,#FBF8F2);color:var(--ink,#261712);font-family:var(--font-body,system-ui,sans-serif);display:grid;place-items:center;padding:32px;box-sizing:border-box;text-align:center}
+.go{display:flex;flex-direction:column;align-items:center;gap:22px;max-width:340px}
+.go__wm{width:132px;height:auto}
+.go__msg{margin:0;font-size:16px;line-height:1.5;color:var(--ink-soft,#6B5B52)}
+.go__btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:14px 26px;border-radius:15px;background:#000;color:#fff;text-decoration:none;box-shadow:0 10px 26px -12px rgba(38,23,18,.5);transition:background 160ms cubic-bezier(.2,.8,.2,1),transform 140ms cubic-bezier(.2,.8,.2,1)}
+.go__btn:hover{background:#16100d;transform:translateY(-2px)}
+.go__btn:active{transform:scale(.985)}
+.go__btn svg{flex:none}
+.go__btn-copy{display:flex;flex-direction:column;align-items:flex-start;line-height:1.1}
+.go__btn-copy small{font-size:11px;color:rgba(255,255,255,.72);margin-bottom:2px}
+.go__btn-copy strong{font-family:var(--font-display,inherit);font-weight:500;font-size:20px;letter-spacing:-.024em;white-space:nowrap}
+.go__home{font-size:13px;color:var(--ink-soft,#6B5B52);text-decoration:none}
+.go__home:hover{color:var(--persimmon,#E35336)}
+a{color:var(--persimmon,#E35336)}
+a:hover{color:var(--persimmon-deep,#C2401F)}
+@media (max-width:400px){.go__btn{width:100%;padding:13px 20px}}
+</style>
+</head>
+<body>
+<div class="go">
+<img class="go__wm" src="/assets/matlyst-wordmark.png" alt="Matlyst" />
+<p class="go__msg">Este perfil se ve dentro de la app.</p>
+<a class="go__btn" href="https://apps.apple.com/es/app/matlyst/id6781277252" rel="noopener">
+<svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.05 12.54c.01-2.2 1.79-3.25 1.87-3.3-1.02-1.5-2.61-1.7-3.17-1.72-1.43-.15-2.79.84-3.52.84-.73 0-1.85-.82-3.04-.8-1.56.02-3 .91-3.8 2.31-1.63 2.83-.42 7.02 1.17 9.32.78 1.12 1.7 2.38 2.92 2.33 1.17-.05 1.61-.76 3.03-.76 1.41 0 1.81.75 3.05.73 1.26-.02 2.07-1.15 2.85-2.28.9-1.3 1.27-2.57 1.29-2.64-.03-.01-2.47-.95-2.5-3.77ZM14.9 5.86c.64-.78 1.08-1.86.96-2.94-.95.04-2.1.63-2.77 1.41-.6.69-1.13 1.8-.99 2.86 1.06.08 2.15-.54 2.8-1.33Z"/></svg>
+<span class="go__btn-copy"><small>Descárgala en la</small><strong>App Store</strong></span>
+</a>
+<a class="go__home" href="/">Ir a matlyst.app</a>
+</div>
+<script>
+/* Quien tiene la app no llega aquí: iOS intercepta el Universal Link y la abre.
+   Si esta página se ejecuta, es que no la tiene → directo a la App Store.
+   Añadir ?web=1 a la URL salta la redirección y deja ver esta página. */
+(function(){
+  if(/[?&]web=1/.test(location.search)) return;
+  location.replace('https://apps.apple.com/es/app/matlyst/id6781277252');
+})();
+</script>
+</body>
+</html>

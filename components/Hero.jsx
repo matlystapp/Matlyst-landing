@@ -6,26 +6,6 @@
 
 function Hero() {
   const phoneRef = React.useRef(null);
-  const [email, setEmail] = React.useState('');
-  const [status, setStatus] = React.useState('idle'); // idle|invalid|loading|success|error
-
-  async function onSubmit(e) {
-    e.preventDefault();
-    if (status === 'loading') return;
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) { setStatus('invalid'); return; }
-    setStatus('loading');
-    try {
-      const res = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim() }),
-      });
-      if (!res.ok) throw new Error();
-      setStatus('success');
-    } catch (err) {
-      setStatus('error');
-    }
-  }
 
   React.useEffect(() => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -34,11 +14,20 @@ function Hero() {
     if (!el || reduce.matches || !desktop.matches) return;
 
     let raf = 0;
+    let wasVisible = true;
     const onScroll = () => {
       if (raf) return;
       raf = requestAnimationFrame(() => {
         raf = 0;
         const y = window.scrollY || window.pageYOffset || 0;
+        // Una vez pasado el hero no hay nada que mover: se deja de escribir el
+        // transform (y de invalidar el blur de la nav) en cada frame.
+        const visible = y < window.innerHeight * 1.2;
+        if (!visible) {
+          if (wasVisible) { el.style.willChange = 'auto'; wasVisible = false; }
+          return;
+        }
+        if (!wasVisible) { el.style.willChange = 'transform'; wasVisible = true; }
         // Phone moves at 0.7x scroll speed → lags by 0.3x (translate down).
         el.style.transform = 'translate3d(0,' + (y * 0.3).toFixed(1) + 'px,0)';
       });
@@ -62,44 +51,20 @@ function Hero() {
           <p className="hero__sub hero-rise" style={{animationDelay:'300ms'}}>
             Matlyst es la app donde sigues a tus amigos, descubres
             los restaurantes que les gustan estén donde estén, y
-            guardas los tuyos. Todo en un solo sitio.
+            guardas los tuyos. Todo en la misma app.
           </p>
-          {status === 'success' ? (
-            <p className="hero__form-done hero-rise" style={{animationDelay:'450ms'}}>
-              ¡Ya estás dentro! Te avisamos en el lanzamiento.
-            </p>
-          ) : (
-            <form className="hero__form hero-rise" style={{animationDelay:'450ms'}} onSubmit={onSubmit} noValidate>
-              <input
-                type="email"
-                placeholder="Tu email"
-                value={email}
-                onChange={e => { setEmail(e.target.value); if (status !== 'idle') setStatus('idle'); }}
-                aria-label="Tu email"
-                autoComplete="email"
-                disabled={status === 'loading'}
-              />
-              <button type="submit" disabled={status === 'loading'}>
-                {status === 'loading' ? 'Enviando…' : <>Únete <Icon name="arrow-right" size={18} /></>}
-              </button>
-            </form>
-          )}
-          {(status === 'invalid' || status === 'error') && (
-            <p className="hero__form-err" role="alert">
-              {status === 'invalid' ? 'Introduce un email válido.' : 'Algo ha salido mal. Inténtalo de nuevo.'}
-            </p>
-          )}
+          <div className="dl__actions hero-rise" style={{animationDelay:'450ms'}}>
+            <a className="dl__store" href="https://apps.apple.com/es/app/matlyst/id6781277252" target="_blank" rel="noreferrer">
+              <AppleGlyph size={26} />
+              <span className="dl__store-copy">
+                <small>Descárgala en la</small>
+                <strong>App Store</strong>
+              </span>
+            </a>
+            <a className="dl__ghost" href="#que-es">Ver cómo funciona <Icon name="arrow-right" size={16} /></a>
+          </div>
           <div className="hero__micro hero-rise" style={{animationDelay:'600ms'}}>
-            <div className="hero__avatars" aria-hidden="true">
-              {[
-                {src:'assets/user-marc.jpg', ring:'var(--persimmon)'},
-                {src:'assets/user-pablo.jpg', ring:'var(--sky)'},
-                {src:'assets/user-elena.jpg', ring:'var(--sage)'},
-              ].map((a, i) => (
-                <span key={i} className="hero__avatar" data-avatar={i + 1} style={{borderColor: a.ring, backgroundImage:`url(${a.src})`}}></span>
-              ))}
-            </div>
-            <span>2.400+ personas ya dentro</span>
+            <span>Ya disponible para iPhone. Gratis.</span>
           </div>
         </div>
 

@@ -107,8 +107,8 @@
     "@type": "FAQPage",
     "mainEntity": [
       {"@type":"Question","name":"¿Qué es Matlyst?","acceptedAnswer":{"@type":"Answer","text":"Matlyst es una aplicación móvil que funciona como red social gastronómica. Permite a los usuarios descubrir, compartir y guardar recomendaciones de restaurantes basadas en los gustos de personas reales de su comunidad, no en algoritmos publicitarios ni en reseñas anónimas."}},
-      {"@type":"Question","name":"¿Cuándo estará disponible Matlyst?","acceptedAnswer":{"@type":"Answer","text":"Matlyst está actualmente en fase de desarrollo y lanzamiento. Puedes unirte a la lista de espera para recibir acceso prioritario antes de la apertura al público general."}},
-      {"@type":"Question","name":"¿Matlyst es gratuita?","acceptedAnswer":{"@type":"Answer","text":"Sí. Matlyst será gratuita para todos los usuarios en su lanzamiento. Únete a la lista de espera para ser el primero en descargarlo."}},
+      {"@type":"Question","name":"¿Dónde puedo descargar Matlyst?","acceptedAnswer":{"@type":"Answer","text":"Ya lo está. Matlyst está disponible para descargar gratis en la App Store. La versión de Android llegará más adelante."}},
+      {"@type":"Question","name":"¿Matlyst es gratuita?","acceptedAnswer":{"@type":"Answer","text":"Sí. Descargarla y usarla es gratis."}},
       {"@type":"Question","name":"¿En qué se diferencia Matlyst de TripAdvisor o Google Maps?","acceptedAnswer":{"@type":"Answer","text":"La diferencia principal es que en Matlyst las recomendaciones vienen de personas reales de tu comunidad cuyos gustos conoces y valoras. A diferencia de TripAdvisor o Google Maps, donde cualquier persona puede dejar una reseña sin contexto, Matlyst te permite conectar con gente que comparte tus preferencias gastronómicas y filtrar el ruido."}},
       {"@type":"Question","name":"¿Dónde está disponible Matlyst?","acceptedAnswer":{"@type":"Answer","text":"Matlyst funciona en cualquier parte del mundo. Si tu amigo vive en Ciudad de México y tú en Madrid, verás sus restaurantes favoritos de México. Si viajas a Buenos Aires, descubres qué recomienda tu gente allí. Matlyst va contigo y con las personas que te importan, sin fronteras."}},
       {"@type":"Question","name":"¿Puedo recomendar cualquier tipo de restaurante?","acceptedAnswer":{"@type":"Answer","text":"Sí. Desde el bar de tapas de toda la vida hasta el restaurante con estrella Michelin, todo tiene cabida si tú lo consideras una buena recomendación."}},
@@ -209,7 +209,7 @@
   <script type="text/babel" src="components/Hero.jsx"></script>
   <script type="text/babel" src="components/MarqueeGallery.jsx"></script>
   <script type="text/babel" src="components/Sections.jsx"></script>
-  <script type="text/babel" src="components/WaitingList.jsx"></script>
+  <script type="text/babel" src="components/Download.jsx"></script>
   <script type="text/babel" src="components/FaqSection.jsx"></script>
   <script type="text/babel" src="components/Footer.jsx"></script>
 
@@ -225,7 +225,7 @@
             <WhatIsSection />
             <FeaturesSection />
             <SocialProofSection />
-            <WaitingListSection />
+            <DownloadSection />
             <FaqSection />
           </main>
           <Footer />
@@ -327,8 +327,22 @@
         });
       }
 
-      // rAF-throttled getBoundingClientRect check. Reliable in any iframe /
-      // preview / embedded webview where IntersectionObserver is throttled.
+      // IntersectionObserver cuando existe: medir 40 nodos con
+      // getBoundingClientRect en cada frame de scroll fuerza un reflow por nodo
+      // y es la causa principal del scroll a tirones. Se deja el bucle rAF solo
+      // como respaldo para navegadores sin IO.
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-in');
+            io.unobserve(entry.target);
+          });
+        }, { rootMargin: '0px 0px -60px 0px', threshold: 0 });
+        nodes.forEach((n) => io.observe(n));
+        return;
+      }
+
       let pending = nodes.slice();
       let frame = 0;
 
@@ -360,6 +374,19 @@
       check(); // reveal anything already in view (hero head, etc.)
       window.addEventListener('scroll', schedule, { passive: true });
       window.addEventListener('resize', schedule);
+
+      // 1a-bis) Pausar las animaciones infinitas de las secciones que no se ven.
+      //          Son bucles decorativos (feed del móvil, nodos, pings, listas):
+      //          fuera de pantalla solo consumen frames.
+      if ('IntersectionObserver' in window) {
+        const animated = document.querySelectorAll('section, footer, .feat, .community');
+        const pauser = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            entry.target.classList.toggle('anim-paused', !entry.isIntersecting);
+          });
+        }, { rootMargin: '200px 0px' });
+        animated.forEach((el) => pauser.observe(el));
+      }
 
       // 1b) "El problema" section — bespoke choreography.
       //     Head cascade (fade+rise, 150ms stagger) when the heading enters,

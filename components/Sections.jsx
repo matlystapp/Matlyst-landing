@@ -11,7 +11,7 @@ function ProblemSection() {
     {
       n: '02',
       title: 'Tus restaurantes buenos están por todas partes',
-      body: 'En un chat, en notas, en una foto. Nunca en un sitio donde encontrarlos cuando los necesitas.',
+      body: 'En un chat, en notas, en una foto. Nunca donde puedas encontrarlos cuando los necesitas.',
     },
     {
       n: '03',
@@ -58,7 +58,7 @@ function WhatIsSection() {
           <span className="eyebrow">Qué es Matlyst</span>
           <h2>La app donde descubres restaurantes con la gente que ya conoces, estén donde estén.</h2>
           <p className="section__sub">
-            Matlyst es la app donde sigues a tus amigos, descubres los restaurantes que les gustan y guardas los tuyos. Todo en un solo sitio.
+            Matlyst es la app donde sigues a tus amigos, descubres los restaurantes que les gustan y guardas los tuyos. Todo en la misma app.
           </p>
         </div>
         <div className="whatis-grid">
@@ -229,12 +229,12 @@ function HowItWorksSection() {
     {
       cls: 'howstep--save',
       title: 'Descubre y guarda restaurantes',
-      body: 'Tu feed se llena con los sitios favoritos de tu gente. Guárdalos en listas, filtra por ciudad o tipo de cocina y tenlo todo a mano cuando lo necesites.',
+      body: 'Tu feed se llena con los restaurantes favoritos de tu gente. Guárdalos en listas, filtra por ciudad o tipo de cocina y tenlo todo a mano cuando lo necesites.',
       viz: <HowSaveViz />,
     },
     {
       cls: 'howstep--trust',
-      title: 'Sube los sitios en los que confías',
+      title: 'Sube los restaurantes en los que confías',
       body: 'Crea listas con los restaurantes que sabes que no fallan. Tus amigos podrán fiarse de ellos — y tú de los suyos.',
       viz: <HowTrustViz />,
     },
@@ -474,7 +474,7 @@ function CityListVisual() {
         <span className="cityrow__pin"><Icon name="map-pin" size={13} stroke={2} /></span>
         {city}
       </span>
-      <span className="cityrow__count">{count} sitios</span>
+      <span className="cityrow__count">{count} restaurantes</span>
     </div>
   );
   return (
@@ -505,7 +505,7 @@ function ListsVisual() {
         }}>
           <div style={{width:6, height:6, borderRadius:999, background:l.c}}></div>
           <span style={{fontSize:12, fontWeight:700, color:'var(--ink)', letterSpacing:'-0.01em'}}>{l.n}</span>
-          <span style={{fontSize:10, color:'var(--ink-quiet)'}}>{l.count} sitios</span>
+          <span style={{fontSize:10, color:'var(--ink-quiet)'}}>{l.count} restaurantes</span>
         </div>
       ))}
     </div>
@@ -538,20 +538,12 @@ function SocialProofSection() {
     <section className="section" id="prueba-social">
       <div className="container">
         <div className="section__head">
-          <h2>Más de 2.400 personas ya están esperando</h2>
-        </div>
-        <div className="proof__avatars">
-          <div className="proof__faces">
-            <img src="assets/user-marc.jpg" alt="Usuario registrado en Matlyst" />
-            <img src="assets/user-pablo.jpg" alt="Usuario registrado en Matlyst" />
-            <img src="assets/user-elena.jpg" alt="Usuaria registrada en Matlyst" />
-          </div>
-          <span className="proof__faces-label">Ya están dentro</span>
+          <h2>Más de 2.400 personas ya están dentro</h2>
         </div>
         <div className="proof__stats">
           <div className="stat">
             <div className="stat__n">2.400+</div>
-            <div className="stat__l">en la lista de espera</div>
+            <div className="stat__l">en la comunidad Matlyst</div>
           </div>
           <div className="stat">
             <div className="stat__n">100%</div>

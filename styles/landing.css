@@ -398,7 +398,7 @@ h1, h2, h3, h4,
 .section   { padding: 40px 0; position: relative; }
 /* Offset in-page anchor jumps so the sticky 80px nav never covers a
    section's start. Applies to every element targeted by a #hash link. */
-section[id], .section[id], .waitlist[id], #lista-espera, #problema, #que-es, #features, #como-funciona, #prueba-social, #faq {
+section[id], .section[id], .waitlist[id], #descargar, #lista-espera, #problema, #que-es, #features, #como-funciona, #prueba-social, #faq {
   scroll-margin-top: 100px;
 }
 .section--tight { padding: 80px 0; }
@@ -484,9 +484,9 @@ section[id], .section[id], .waitlist[id], #lista-espera, #problema, #que-es, #fe
 /* ====== Nav ====== */
 .nav {
   position: sticky; top: 0; z-index: 50;
-  background: rgba(255, 255, 255, 0.78);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 .nav__inner { display: flex; align-items: center; justify-content: space-between; height: 80px; }
@@ -1701,7 +1701,6 @@ section[id], .section[id], .waitlist[id], #lista-espera, #problema, #que-es, #fe
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 600ms cubic-bezier(.2,.8,.2,1), transform 600ms cubic-bezier(.2,.8,.2,1);
-  will-change: opacity, transform;
 }
 [data-reveal].is-in {
   opacity: 1;
@@ -2367,3 +2366,129 @@ html { overflow-x: hidden; }
   .stat__n { font-size: clamp(38px, 11vw, 48px); }
   .stat__l { font-size: 11px; margin-top: 8px; letter-spacing: 0.04em; }
 }
+
+
+/* ====== Botones de descarga (cierre + hero) ====== */
+.dl__actions { margin: 36px 0 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px; position: relative; }
+.dl__store {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 13px 26px 13px 22px; border-radius: 999px;
+  background: var(--paper); color: var(--ink);
+  box-shadow: 0 18px 40px -18px rgba(0,0,0,0.4);
+  transition: transform 140ms cubic-bezier(.2,.8,.2,1), box-shadow 180ms;
+}
+.dl__store:hover { color: var(--ink); transform: translateY(-3px); box-shadow: 0 24px 48px -18px rgba(0,0,0,0.45); }
+.dl__store:active { transform: scale(.985); }
+.dl__store-copy { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.1; }
+.dl__store-copy small { font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-soft); }
+.dl__store-copy strong { font-family: var(--font-display); font-weight: 500; font-size: 19px; letter-spacing: -0.02em; }
+.dl__soon {
+  display: inline-flex; align-items: center; padding: 11px 20px; border-radius: 999px;
+  border: 1.5px solid rgba(255,255,255,0.34); color: rgba(255,255,255,0.85);
+  font-size: 13px; letter-spacing: 0.02em;
+}
+/* En el hero la fila va sobre crema, no sobre persimmon */
+.hero .dl__soon { border-color: rgba(38,23,18,0.22); color: var(--ink-soft); }
+.hero .dl__store { background: var(--persimmon); color: #fff; box-shadow: 0 8px 24px -8px rgba(227,83,54,0.5); }
+.hero .dl__store:hover { background: var(--persimmon-deep); color: #fff; box-shadow: 0 14px 30px -8px rgba(227,83,54,0.6); }
+.hero .dl__store-copy small { color: rgba(255,255,255,0.78); }
+.hero .dl__actions { margin-top: 30px; justify-content: flex-start; }
+@media (max-width: 920px) { .hero .dl__actions { justify-content: center; } }
+
+
+/* ====== Badge de App Store — negro, tipo insignia oficial ====== */
+.dl__store {
+  background: #000; color: #fff;
+  padding: 11px 22px 11px 18px; gap: 13px;
+  border-radius: 14px;
+  box-shadow: 0 10px 26px -12px rgba(0,0,0,0.55);
+}
+.dl__store:hover { background: #16100d; color: #fff; box-shadow: 0 16px 34px -14px rgba(0,0,0,0.6); }
+.dl__store-copy small { font-size: 11px; letter-spacing: 0.01em; text-transform: none; color: rgba(255,255,255,0.72); margin-bottom: 2px; }
+.dl__store-copy strong { font-size: 21px; color: #fff; letter-spacing: -0.024em; }
+.hero .dl__store, .hero .dl__store:hover { background: #000; color: #fff; box-shadow: 0 10px 26px -12px rgba(38,23,18,0.5); }
+.hero .dl__store:hover { background: #16100d; }
+.hero .dl__store-copy small { color: rgba(255,255,255,0.72); }
+
+/* Enlace secundario junto al badge */
+.dl__ghost {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 15px; font-weight: 500; color: var(--ink);
+  padding: 12px 4px;
+}
+.dl__ghost svg { transition: transform 160ms cubic-bezier(.2,.8,.2,1); }
+.dl__ghost:hover { color: var(--persimmon); }
+.dl__ghost:hover svg { transform: translateX(3px); }
+
+.dl__note { position: relative; margin: 18px 0 0; font-size: 13px; color: rgba(255,255,255,0.62); }
+
+/* ====== Nav CTA — pastilla persimmon con la manzana ====== */
+.nav__cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 11px 20px; border-radius: 999px;
+  box-shadow: 0 6px 18px -8px rgba(227,83,54,0.55);
+  transition: background 160ms cubic-bezier(.2,.8,.2,1), transform 140ms cubic-bezier(.2,.8,.2,1), box-shadow 160ms;
+}
+.nav__cta svg { flex: none; margin-top: -1px; }
+.nav__cta:hover { transform: translateY(-1px); box-shadow: 0 10px 22px -8px rgba(227,83,54,0.6); }
+.nav__cta:active { transform: scale(.985); }
+@media (max-width: 520px) { .nav__cta { padding: 10px 16px; } }
+
+
+/* ====== Rendimiento: parar las animaciones decorativas fuera de pantalla ======
+   Cada bucle infinito (feed del móvil, nodos, pings, listas de ciudades) sigue
+   pintando aunque su sección esté a tres pantallas de distancia. Pausarlas
+   libera el hilo de composición y el scroll va suelto. */
+.anim-paused,
+.anim-paused * { animation-play-state: paused !important; }
+
+
+/* ====== Descarga responsive — el badge escala en vez de romperse ======
+   El badge era de tamaño fijo y en pantallas pequeñas quedaba desproporcionado
+   junto al enlace secundario. Ahora la fila se apila, el badge crece hasta un
+   ancho cómodo y el tamaño de texto/padding se interpola con el viewport. */
+.dl__store { min-height: 56px; box-sizing: border-box; text-decoration: none; }
+.dl__store-copy strong { white-space: nowrap; }
+.dl__ghost { min-height: 44px; text-decoration: none; }
+
+@media (max-width: 620px) {
+  .dl__actions,
+  .hero .dl__actions {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-top: 28px;
+  }
+  .dl__store {
+    width: 100%;
+    max-width: 340px;
+    margin: 0 auto;
+    justify-content: center;
+    padding: 13px 24px 13px 20px;
+    border-radius: 15px;
+  }
+  .dl__ghost {
+    justify-content: center;
+    padding: 10px 4px 2px;
+    font-size: 14.5px;
+    color: var(--ink-soft);
+  }
+  .dl__note { margin-top: 14px; font-size: 12.5px; }
+}
+
+/* Móviles estrechos — el badge ocupa el ancho disponible sin apretar el texto */
+@media (max-width: 400px) {
+  .dl__store {
+    max-width: none;
+    padding: 12px 18px 12px 16px;
+    gap: 11px;
+    min-height: 54px;
+  }
+  .dl__store-copy small { font-size: 10.5px; }
+  .dl__store-copy strong { font-size: 19px; }
+}
+
+/* La cuenta de restaurantes por ciudad no debe partirse en dos líneas */
+.cityrow__count { white-space: nowrap; font-size: 11px; }
+.cityrow__city  { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

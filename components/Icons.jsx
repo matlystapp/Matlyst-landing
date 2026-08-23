@@ -38,4 +38,11 @@ const Icon = ({ name, size = 24, color, stroke = 1.75, style }) => {
     </svg>
   );
 };
+// Logo de Apple: es de relleno, no de trazo, así que va aparte de <Icon>.
+const AppleGlyph = ({ size = 20 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M17.05 12.54c.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.72-1.43-.15-2.79.84-3.52.84-.73 0-1.85-.82-3.04-.8-1.56.02-3 .91-3.8 2.31-1.63 2.83-.42 7.02 1.17 9.32.78 1.12 1.7 2.38 2.92 2.33 1.17-.05 1.61-.76 3.03-.76 1.41 0 1.81.75 3.05.73 1.26-.02 2.07-1.15 2.85-2.28.9-1.3 1.27-2.57 1.29-2.64-.03-.01-2.47-.95-2.5-3.77zM14.9 5.86c.64-.78 1.08-1.86.96-2.94-.95.04-2.1.63-2.77 1.41-.6.69-1.13 1.8-.99 2.86 1.06.08 2.15-.54 2.8-1.33z"/>
+  </svg>
+);
+window.AppleGlyph = AppleGlyph;
 window.Icon = Icon;
